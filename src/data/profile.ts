@@ -1,3 +1,18 @@
+export const profile = {
+  name: "Luiz Mendes",
+  role: "Full Stack Developer",
+  selectorTitle: "Portfólio interativo",
+  selectorDescription:
+    "Experiências 100% React com motion, foco mobile-first e detalhes refinados para qualquer tela.",
+  headline: "Experiências digitais com foco em engenharia, motion e impacto.",
+  summary:
+    "Construo produtos digitais que conectam estratégia, performance e design. Do backend ao front-end, entrego interfaces fluídas, responsivas e preparadas para escalar.",
+  cta: {
+    primary: "Ver projetos",
+    secondary: "Falar comigo",
+  },
+};
+
 export const skills = [
   "Java",
   "Spring Boot",
@@ -33,7 +48,19 @@ export const highlights = [
 ];
 
 export const contactLinks = [
-  { label: "GitHub", href: "https://github.com/Lzdevmendes" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/luiz-mendes" },
-  { label: "Email", href: "mailto:luiz.mendes@email.com" },
+  {
+    label: "GitHub",
+    detail: "@Lzdevmendes",
+    href: "https://github.com/Lzdevmendes",
+  },
+  {
+    label: "LinkedIn",
+    detail: "/in/luiz-mendes",
+    href: "https://linkedin.com/in/luiz-mendes",
+  },
+  {
+    label: "Email",
+    detail: "luiz.mendes@email.com",
+    href: "mailto:luiz.mendes@email.com",
+  },
 ];

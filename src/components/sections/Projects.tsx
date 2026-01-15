@@ -19,55 +19,63 @@ export function Projects() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          {projects.map((project) => (
-            <motion.article
-              key={project.id}
-              whileHover={{ y: -6 }}
-              transition={{ type: "spring", stiffness: 260, damping: 20 }}
-              className="border border-slate-800 rounded-2xl p-6 bg-slate-900/30 hover:border-slate-500 transition flex flex-col gap-4"
-            >
-              <div>
-                <h3 className="text-lg sm:text-xl font-semibold mb-2">
-                  {project.title}
-                </h3>
-                <p className="text-slate-400 text-sm">
-                  {project.description}
-                </p>
-              </div>
+          {projects.map((project, index) => {
+            const projectNumber = String(index + 1).padStart(2, "0");
 
-              <div className="flex flex-wrap gap-2">
-                {project.tech.map((tech) => (
-                  <span
-                    key={tech}
-                    className="text-xs px-2 py-1 rounded bg-slate-800/80"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
+            return (
+              <motion.article
+                key={project.id}
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                className="border border-slate-800 rounded-2xl p-6 bg-slate-900/40 hover:border-slate-500 hover:shadow-[0_30px_80px_-60px_rgba(99,102,241,0.45)] transition flex flex-col gap-4"
+              >
+                <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-slate-500">
+                  <span>Projeto</span>
+                  <span>{projectNumber}</span>
+                </div>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-semibold mb-2 text-slate-100">
+                    {project.title}
+                  </h3>
+                  <p className="text-slate-400 text-sm">
+                    {project.description}
+                  </p>
+                </div>
 
-              <div className="flex flex-wrap gap-4 text-sm">
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline opacity-80 hover:opacity-100"
-                >
-                  Ver código →
-                </a>
-                {project.live && (
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map((tech) => (
+                    <span
+                      key={tech}
+                      className="text-xs px-2 py-1 rounded bg-slate-800/80 text-slate-200"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap gap-4 text-sm">
                   <a
-                    href={project.live}
+                    href={project.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="underline opacity-80 hover:opacity-100"
+                    className="underline text-slate-200/80 hover:text-slate-100 transition"
                   >
-                    Ver demo →
+                    Ver código →
                   </a>
-                )}
-              </div>
-            </motion.article>
-          ))}
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline text-slate-200/80 hover:text-slate-100 transition"
+                    >
+                      Ver demo →
+                    </a>
+                  )}
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </Section>

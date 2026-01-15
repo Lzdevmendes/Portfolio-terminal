@@ -1,14 +1,14 @@
 import { useState } from "react";
 import type { KeyboardEvent } from "react";
 import { projects } from "../../data/projects";
-import { contactLinks, skills } from "../../data/profile";
+import { contactLinks, profile, skills } from "../../data/profile";
 
 type Section = "about" | "skills" | "projects" | "contact" | null;
 
 export function Terminal() {
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([
-    "Bem-vindo ao portfólio interativo.",
+    `Bem-vindo ao portfólio de ${profile.name}.`,
     "Digite 'help' para explorar comandos."
   ]);
 
@@ -111,7 +111,7 @@ export function Terminal() {
             <div className="flex flex-wrap gap-3 text-sm text-slate-300">
               {contactLinks.map((link) => (
                 <span key={link.label} className="border border-slate-800 rounded px-3 py-1">
-                  {link.label}
+                  {link.label}: {link.detail}
                 </span>
               ))}
             </div>

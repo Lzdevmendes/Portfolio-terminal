@@ -13,9 +13,9 @@ export function Section({ id, children }: SectionProps) {
       whileInView={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -40 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       id={id}
-      className="mx-auto w-full max-w-5xl px-6 py-16 sm:px-8 sm:py-20 scroll-mt-24"
+      className="relative mx-auto w-full max-w-5xl px-6 py-20 sm:px-8 sm:py-24 scroll-mt-24"
     >
       {children}
     </motion.section>

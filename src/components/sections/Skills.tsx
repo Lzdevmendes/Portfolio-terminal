@@ -21,12 +21,15 @@ export function Skills() {
           {skills.map((skill) => (
             <motion.div
               key={skill}
-              whileHover={{ y: -4 }}
+              whileHover={{ y: -6 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 320, damping: 22 }}
-              className="border border-slate-800 rounded-xl px-4 py-3 text-center text-sm sm:text-base bg-slate-900/30 hover:border-slate-600 transition"
+              className="group border border-slate-800 rounded-2xl px-4 py-4 text-center text-sm sm:text-base bg-slate-900/40 hover:border-slate-500 hover:shadow-[0_20px_50px_-40px_rgba(16,185,129,0.45)] transition"
             >
-              {skill}
+              <span className="block text-slate-100">{skill}</span>
+              <span className="mt-2 block text-[11px] uppercase tracking-[0.2em] text-slate-500 group-hover:text-emerald-300 transition">
+                Core
+              </span>
             </motion.div>
           ))}
         </div>

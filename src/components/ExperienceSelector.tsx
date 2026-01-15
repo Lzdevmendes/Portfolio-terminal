@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { profile } from "../data/profile";
 
 interface Props {
   onSelect: (value: "terminal" | "scroll") => void;
@@ -6,31 +7,39 @@ interface Props {
 
 export function ExperienceSelector({ onSelect }: Props) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-950 text-slate-100 px-6 py-16">
+    <div className="min-h-screen relative flex items-center justify-center bg-slate-950 text-slate-100 px-6 py-16 overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#1e293b33,transparent_60%)]" />
+      <div className="absolute -top-32 right-[-10%] h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl" />
+      <div className="absolute bottom-0 left-[-10%] h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl" />
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-center space-y-8 max-w-xl"
+        className="relative z-10 w-full max-w-2xl rounded-3xl border border-slate-800/80 bg-slate-950/70 p-8 sm:p-12 shadow-[0_0_60px_-20px_rgba(15,23,42,0.8)] backdrop-blur"
       >
-        <p className="text-xs uppercase tracking-[0.3em] text-emerald-300">
-          Portfólio interativo
-        </p>
+        <div className="text-center space-y-6">
+          <div className="space-y-3">
+            <p className="text-xs uppercase tracking-[0.3em] text-emerald-300">
+              {profile.selectorTitle}
+            </p>
+            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight">
+              {profile.name}
+            </h1>
+            <p className="text-sm uppercase tracking-[0.2em] text-slate-400">
+              {profile.role}
+            </p>
+          </div>
 
-        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight">
-          Luiz Mendes
-        </h1>
+          <p className="text-slate-400 text-sm sm:text-base">
+            {profile.selectorDescription}
+          </p>
+        </div>
 
-        <p className="text-slate-400 text-sm sm:text-base">
-          Experiências construídas 100% em React, com motion e foco em mobile
-          first para navegação fluida em qualquer dispositivo.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="grid gap-4 sm:grid-cols-2">
           <motion.button
             onClick={() => onSelect("terminal")}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full sm:w-auto px-6 py-4 rounded-lg border border-emerald-500/60 text-emerald-200 hover:bg-emerald-500/10 transition text-left"
+            className="w-full px-6 py-4 rounded-2xl border border-emerald-500/60 text-emerald-200 hover:bg-emerald-500/10 transition text-left"
           >
             <span className="block text-base font-semibold">
               Terminal Experience
@@ -44,7 +53,7 @@ export function ExperienceSelector({ onSelect }: Props) {
             onClick={() => onSelect("scroll")}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full sm:w-auto px-6 py-4 rounded-lg border border-indigo-500/60 text-indigo-200 hover:bg-indigo-500/10 transition text-left"
+            className="w-full px-6 py-4 rounded-2xl border border-indigo-500/60 text-indigo-200 hover:bg-indigo-500/10 transition text-left"
           >
             <span className="block text-base font-semibold">
               Scroll Experience
