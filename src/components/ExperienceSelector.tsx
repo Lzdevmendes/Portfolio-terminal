@@ -34,11 +34,7 @@ export function ExperienceSelector({ onSelect }: Props) {
           </p>
         </div>
 
-        <div
-          role="group"
-          aria-label="Experience selection"
-          className="grid gap-4 sm:grid-cols-2"
-        >
+        <div className="grid gap-4 sm:grid-cols-2">
           <motion.button
             type="button"
             onClick={() => onSelect("terminal")}
