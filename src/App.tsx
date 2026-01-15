@@ -28,7 +28,7 @@ export default function App() {
     <>
       <button
         onClick={resetExperience}
-        className="fixed top-4 right-4 z-50 px-4 py-2 text-xs rounded-md border border-slate-700 text-slate-300 hover:bg-slate-800 transition"
+        className="fixed top-4 right-4 z-50 px-3 py-2 text-[11px] sm:text-xs rounded-full border border-slate-700 text-slate-300 hover:bg-slate-800 transition"
       >
         Trocar modo
       </button>
