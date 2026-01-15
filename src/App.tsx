@@ -1,25 +1,39 @@
 import { useState } from "react";
+import { ExperienceSelector } from "./components/ExperienceSelector";
 import { Terminal } from "./components/Terminal/Terminal";
-import { About } from "./components/sections/About";
-import { Skills } from "./components/sections/Skills";
-import { Projects } from "./components/sections/Projects";
-import { Contact } from "./components/sections/Contact";
+import { ScrollExperience } from "./components/ScrollExperience";
 
-type Section = "about" | "skills" | "projects" | "contact" | null;
+type Experience = "terminal" | "scroll" | null;
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState<Section>(null);
+  const [experience, setExperience] = useState<Experience>(() => {
+    return localStorage.getItem("experience") as Experience;
+  });
+
+  function handleSelect(value: Experience) {
+    localStorage.setItem("experience", value!);
+    setExperience(value);
+  }
+
+  function resetExperience() {
+    localStorage.removeItem("experience");
+    setExperience(null);
+  }
+
+  if (!experience) {
+    return <ExperienceSelector onSelect={handleSelect} />;
+  }
 
   return (
-    <div className="app">
-      <Terminal onSectionChange={setActiveSection} />
+    <>
+      <button
+        onClick={resetExperience}
+        className="fixed top-4 right-4 z-50 px-4 py-2 text-xs rounded-md border border-slate-700 text-slate-300 hover:bg-slate-800 transition"
+      >
+        Trocar modo
+      </button>
 
-      <div className="content">
-        {activeSection === "about" && <About />}
-        {activeSection === "skills" && <Skills />}
-        {activeSection === "projects" && <Projects />}
-        {activeSection === "contact" && <Contact />}
-      </div>
-    </div>
+      {experience === "terminal" ? <Terminal /> : <ScrollExperience />}
+    </>
   );
 }
