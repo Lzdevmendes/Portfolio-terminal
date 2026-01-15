@@ -1,16 +1,19 @@
 import { useState } from "react";
 import type { KeyboardEvent } from "react";
+import { projects } from "../../data/projects";
+import { contactLinks, profile, skills } from "../../data/profile";
 
 type Section = "about" | "skills" | "projects" | "contact" | null;
 
 export function Terminal() {
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([
-    "Bem-vindo ao meu portfólio.",
-    "Digite 'help' para começar."
+    `Bem-vindo ao portfólio de ${profile.name}.`,
+    "Digite 'help' para explorar comandos."
   ]);
 
   const [activeSection, setActiveSection] = useState<Section>(null);
+  const terminalSkills = skills.slice(0, 6);
 
   function handleCommand(command: string) {
     const cmd = command.toLowerCase().trim();
@@ -54,7 +57,7 @@ export function Terminal() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Terminal */}
-      <div className="flex-1 p-8 font-mono text-sm overflow-y-auto leading-relaxed">
+      <div className="flex-1 p-4 sm:p-8 font-mono text-xs sm:text-sm overflow-y-auto leading-relaxed">
         {history.map((line, index) => (
           <div key={index} className="leading-relaxed">
             {line}
@@ -63,13 +66,14 @@ export function Terminal() {
       </div>
 
       {/* Conteúdo Dinâmico */}
-      <div className="border-t border-slate-800 p-6">
+      <div className="border-t border-slate-800 p-4 sm:p-6">
         {activeSection === "about" && (
           <div>
             <h2 className="text-lg text-emerald-400 mb-2">Sobre</h2>
-            <p className="text-slate-300">
-              Aqui você poderá escrever sobre você, sua trajetória,
-              objetivos e estilo de trabalho.
+            <p className="text-slate-300 text-sm">
+              Desenvolvedor orientado a produto, com foco em arquitetura limpa e
+              interfaces modernas com motion e compatibilidade total entre
+              mobile e desktop.
             </p>
           </div>
         )}
@@ -77,36 +81,49 @@ export function Terminal() {
         {activeSection === "skills" && (
           <div>
             <h2 className="text-lg text-emerald-400 mb-2">Skills</h2>
-            <p className="text-slate-300">
-              Liste aqui suas tecnologias, frameworks e ferramentas.
-            </p>
+            <ul className="grid grid-cols-2 gap-2 text-slate-300 text-sm">
+              {terminalSkills.map((skill) => (
+                <li key={skill} className="border border-slate-800 rounded px-2 py-1">
+                  {skill}
+                </li>
+              ))}
+            </ul>
           </div>
         )}
 
         {activeSection === "projects" && (
           <div>
             <h2 className="text-lg text-emerald-400 mb-2">Projetos</h2>
-            <p className="text-slate-300">
-              Você pode criar cards ou lista dos seus 5 projetos aqui.
-            </p>
+            <ul className="space-y-2 text-slate-300 text-sm">
+              {projects.slice(0, 3).map((project) => (
+                <li key={project.id} className="border border-slate-800 rounded px-3 py-2">
+                  <p className="font-semibold">{project.title}</p>
+                  <p className="text-slate-400">{project.description}</p>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
 
         {activeSection === "contact" && (
           <div>
             <h2 className="text-lg text-emerald-400 mb-2">Contato</h2>
-            <p className="text-slate-300">
-              Email, LinkedIn, GitHub, etc.
-            </p>
+            <div className="flex flex-wrap gap-3 text-sm text-slate-300">
+              {contactLinks.map((link) => (
+                <span key={link.label} className="border border-slate-800 rounded px-3 py-1">
+                  {link.label}: {link.detail}
+                </span>
+              ))}
+            </div>
           </div>
         )}
       </div>
 
       {/* Input */}
-      <div className="flex items-center gap-3 border-t border-slate-800 bg-slate-950/40 backdrop-blur px-6 py-4">
+      <div className="flex items-center gap-3 border-t border-slate-800 bg-slate-950/40 backdrop-blur px-4 sm:px-6 py-4">
         <span className="text-emerald-400">$</span>
         <input
-          className="flex-1 bg-transparent outline-none text-slate-100"
+          className="flex-1 bg-transparent outline-none text-slate-100 text-sm"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
