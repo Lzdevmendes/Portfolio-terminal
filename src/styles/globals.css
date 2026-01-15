@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
+  --grid-color: rgba(148, 163, 184, 0.08);
   color: #e5e7eb;
   font-family: 'JetBrains Mono', monospace;
   overflow-x: hidden;
@@ -18,8 +19,8 @@ body::before {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: 36px 36px;
   pointer-events: none;
   z-index: -1;
