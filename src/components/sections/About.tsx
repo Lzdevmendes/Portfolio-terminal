@@ -1,20 +1,6 @@
 import { motion } from "framer-motion";
 import { Section } from "./Section";
-
-const highlights = [
-  {
-    title: "Arquitetura & APIs",
-    description: "Projetos que combinam performance, escalabilidade e boas práticas.",
-  },
-  {
-    title: "Front-end criativo",
-    description: "Interfaces React com micro interações, motion e UX centrada.",
-  },
-  {
-    title: "Entrega mobile first",
-    description: "Layouts responsivos pensados desde o primeiro pixel.",
-  },
-];
+import { experienceTags, highlights } from "../../data/profile";
 
 export function About() {
   return (
@@ -33,7 +19,7 @@ export function About() {
             entre mobile e desktop.
           </p>
           <div className="flex flex-wrap gap-2">
-            {["React", "Motion UI", "TypeScript", "Mobile First"].map((tag) => (
+            {experienceTags.map((tag) => (
               <span
                 key={tag}
                 className="px-3 py-1 text-xs rounded-full border border-slate-800 text-slate-300"

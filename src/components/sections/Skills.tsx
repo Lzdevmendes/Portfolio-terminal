@@ -1,17 +1,6 @@
 import { motion } from "framer-motion";
 import { Section } from "./Section";
-
-const skills = [
-  "Java",
-  "Spring Boot",
-  "Node.js",
-  "React",
-  "TypeScript",
-  "Docker",
-  "PostgreSQL",
-  "Linux",
-  "Git",
-];
+import { skills } from "../../data/profile";
 
 export function Skills() {
   return (

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { KeyboardEvent } from "react";
 import { projects } from "../../data/projects";
+import { contactLinks, skills } from "../../data/profile";
 
 type Section = "about" | "skills" | "projects" | "contact" | null;
 
@@ -12,14 +13,7 @@ export function Terminal() {
   ]);
 
   const [activeSection, setActiveSection] = useState<Section>(null);
-  const skills = [
-    "React",
-    "TypeScript",
-    "Node.js",
-    "Java",
-    "PostgreSQL",
-    "Docker",
-  ];
+  const terminalSkills = skills.slice(0, 6);
 
   function handleCommand(command: string) {
     const cmd = command.toLowerCase().trim();
@@ -88,7 +82,7 @@ export function Terminal() {
           <div>
             <h2 className="text-lg text-emerald-400 mb-2">Skills</h2>
             <ul className="grid grid-cols-2 gap-2 text-slate-300 text-sm">
-              {skills.map((skill) => (
+              {terminalSkills.map((skill) => (
                 <li key={skill} className="border border-slate-800 rounded px-2 py-1">
                   {skill}
                 </li>
@@ -115,15 +109,11 @@ export function Terminal() {
           <div>
             <h2 className="text-lg text-emerald-400 mb-2">Contato</h2>
             <div className="flex flex-wrap gap-3 text-sm text-slate-300">
-              <span className="border border-slate-800 rounded px-3 py-1">
-                GitHub
-              </span>
-              <span className="border border-slate-800 rounded px-3 py-1">
-                LinkedIn
-              </span>
-              <span className="border border-slate-800 rounded px-3 py-1">
-                Email
-              </span>
+              {contactLinks.map((link) => (
+                <span key={link.label} className="border border-slate-800 rounded px-3 py-1">
+                  {link.label}
+                </span>
+              ))}
             </div>
           </div>
         )}

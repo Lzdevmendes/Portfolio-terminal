@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Section } from "./Section";
+import { contactLinks } from "../../data/profile";
 
 export function Contact() {
   return (
@@ -19,11 +20,7 @@ export function Contact() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-3">
-          {[
-            { label: "GitHub", href: "https://github.com/" },
-            { label: "LinkedIn", href: "https://linkedin.com/" },
-            { label: "Email", href: "mailto:contato@email.com" },
-          ].map((item) => (
+          {contactLinks.map((item) => (
             <motion.a
               key={item.label}
               href={item.href}
