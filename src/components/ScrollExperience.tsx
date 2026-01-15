@@ -13,9 +13,21 @@ const navItems = [
 ];
 
 const backgroundOrbs = [
-  "absolute -top-32 right-[-10%] h-80 w-80 rounded-full bg-emerald-500/10 blur-3xl",
-  "absolute top-1/2 left-[-20%] h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl",
-  "absolute bottom-0 right-[-10%] h-72 w-72 rounded-full bg-sky-500/10 blur-3xl",
+  {
+    id: "emerald",
+    className:
+      "absolute -top-32 right-[-10%] h-80 w-80 rounded-full bg-emerald-500/10 blur-3xl",
+  },
+  {
+    id: "indigo",
+    className:
+      "absolute top-1/2 left-[-20%] h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl",
+  },
+  {
+    id: "sky",
+    className:
+      "absolute bottom-0 right-[-10%] h-72 w-72 rounded-full bg-sky-500/10 blur-3xl",
+  },
 ];
 
 export function ScrollExperience() {
@@ -24,8 +36,8 @@ export function ScrollExperience() {
   return (
     <div className="min-h-screen relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
-        {backgroundOrbs.map((classes) => (
-          <div key={classes} className={classes} />
+        {backgroundOrbs.map((orb) => (
+          <div key={orb.id} className={orb.className} />
         ))}
       </div>
 

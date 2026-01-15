@@ -34,8 +34,13 @@ export function ExperienceSelector({ onSelect }: Props) {
           </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div
+          role="group"
+          aria-label="Seleção de experiência"
+          className="grid gap-4 sm:grid-cols-2"
+        >
           <motion.button
+            type="button"
             onClick={() => onSelect("terminal")}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
@@ -50,6 +55,7 @@ export function ExperienceSelector({ onSelect }: Props) {
           </motion.button>
 
           <motion.button
+            type="button"
             onClick={() => onSelect("scroll")}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
