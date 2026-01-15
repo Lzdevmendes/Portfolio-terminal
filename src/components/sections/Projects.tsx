@@ -19,8 +19,8 @@ export function Projects() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          {projects.map((project, index) => {
-            const projectNumber = String(index + 1).padStart(2, "0");
+          {projects.map((project) => {
+            const projectNumber = String(project.id).padStart(2, "0");
 
             return (
               <motion.article

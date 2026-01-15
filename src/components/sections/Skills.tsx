@@ -27,9 +27,6 @@ export function Skills() {
               className="group border border-slate-800 rounded-2xl px-4 py-4 text-center text-sm sm:text-base bg-slate-900/40 hover:border-slate-500 hover:shadow-[0_20px_50px_-40px_rgba(16,185,129,0.45)] transition"
             >
               <span className="block text-slate-100">{skill}</span>
-              <span className="mt-2 block text-[11px] uppercase tracking-[0.2em] text-slate-500 group-hover:text-emerald-300 transition">
-                Core
-              </span>
             </motion.div>
           ))}
         </div>

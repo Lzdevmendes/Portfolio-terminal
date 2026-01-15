@@ -12,15 +12,21 @@ const navItems = [
   { id: "contact", label: "Contato" },
 ];
 
+const backgroundOrbs = [
+  "absolute -top-32 right-[-10%] h-80 w-80 rounded-full bg-emerald-500/10 blur-3xl",
+  "absolute top-1/2 left-[-20%] h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl",
+  "absolute bottom-0 right-[-10%] h-72 w-72 rounded-full bg-sky-500/10 blur-3xl",
+];
+
 export function ScrollExperience() {
   const { scrollTo } = useScrollToSection();
 
   return (
     <div className="min-h-screen relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-32 right-[-10%] h-80 w-80 rounded-full bg-emerald-500/10 blur-3xl" />
-        <div className="absolute top-1/2 left-[-20%] h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl" />
-        <div className="absolute bottom-0 right-[-10%] h-72 w-72 rounded-full bg-sky-500/10 blur-3xl" />
+        {backgroundOrbs.map((classes) => (
+          <div key={classes} className={classes} />
+        ))}
       </div>
 
       <nav className="sticky top-0 z-40 border-b border-slate-800/60 bg-slate-950/80 backdrop-blur">
