@@ -1,0 +1,53 @@
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #050b1f, #020617);
+  color: #e5e7eb;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+.terminal {
+  width: 420px;
+  padding: 20px;
+  border-right: 1px solid rgba(255,255,255,0.05);
+  background: rgba(0,0,0,0.4);
+}
+
+.terminal-history {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.terminal-input {
+  display: flex;
+  gap: 8px;
+}
+
+.terminal-input input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  flex: 1;
+}
+
+.content {
+  flex: 1;
+  padding: 60px;
+  overflow-y: auto;
+}
+
+.section h2 {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.section p {
+  max-width: 600px;
+  opacity: 0.85;
+}
