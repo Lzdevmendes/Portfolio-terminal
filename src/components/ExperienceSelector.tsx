@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { profile } from "../data/profile";
 
 interface Props {
@@ -6,11 +6,29 @@ interface Props {
 }
 
 export function ExperienceSelector({ onSelect }: Props) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <div className="min-h-screen relative flex items-center justify-center bg-slate-950 text-slate-100 px-6 py-16 overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#1e293b33,transparent_60%)]" />
-      <div className="absolute -top-32 right-[-10%] h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl" />
-      <div className="absolute bottom-0 left-[-10%] h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl" />
+      <motion.div
+        className="absolute -top-32 right-[-10%] h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl"
+        animate={
+          shouldReduceMotion
+            ? undefined
+            : { scale: [1, 1.08, 1], opacity: [0.35, 0.6, 0.35] }
+        }
+        transition={{ duration: 12, repeat: Infinity }}
+      />
+      <motion.div
+        className="absolute bottom-0 left-[-10%] h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl"
+        animate={
+          shouldReduceMotion
+            ? undefined
+            : { scale: [1, 1.12, 1], opacity: [0.3, 0.55, 0.3] }
+        }
+        transition={{ duration: 14, repeat: Infinity }}
+      />
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}

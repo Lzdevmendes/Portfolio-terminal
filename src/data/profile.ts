@@ -11,6 +11,11 @@ export const profile = {
     primary: "Ver projetos",
     secondary: "Falar comigo",
   },
+  stats: [
+    { label: "Anos de experiência", value: "5+" },
+    { label: "Projetos entregues", value: "30+" },
+    { label: "Stack principal", value: "React" },
+  ],
 };
 
 export const skills = [

@@ -26,6 +26,24 @@ export function About() {
             {profile.summary}
           </p>
 
+          <div className="grid gap-3 sm:grid-cols-3">
+            {profile.stats.map((stat) => (
+              <motion.div
+                key={stat.label}
+                whileHover={{ y: -3 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                className="rounded-2xl border border-slate-800/80 bg-slate-900/40 px-4 py-3"
+              >
+                <span className="block text-xl font-semibold text-slate-100">
+                  {stat.value}
+                </span>
+                <span className="text-xs uppercase tracking-[0.2em] text-slate-500">
+                  {stat.label}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+
           <div className="flex flex-wrap gap-3">
             <motion.button
               type="button"
