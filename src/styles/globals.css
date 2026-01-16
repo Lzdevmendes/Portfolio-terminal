@@ -2,28 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  background: radial-gradient(circle at top, #020617, #020617);
+/* Base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 4rem;
+    background: radial-gradient(circle at top, #020617, #020617);
+  }
+
+  body {
+    @apply text-slate-100 font-mono antialiased;
+    color: #e5e7eb;
+    font-family: 'JetBrains Mono', monospace;
+    overflow-x: hidden;
+    background-attachment: fixed;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-emerald-500/30 text-emerald-100;
+  }
 }
 
-body {
-  color: #e5e7eb;
-  font-family: 'JetBrains Mono', monospace;
-  overflow-x: hidden;
-}
+/* Scrollbar styling */
+@layer utilities {
+  /* Webkit browsers */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
 
-/* Scrollbar clean */
-::-webkit-scrollbar {
-  width: 6px;
-}
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
 
-::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 8px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #475569;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-700 rounded-full hover:bg-slate-600 transition-colors;
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #475569 transparent;
+  }
+
+  /* Custom utilities */
+  .gradient-text {
+    @apply bg-gradient-to-r from-emerald-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent;
+  }
+
+  .glass-effect {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+
+  .glass-effect-dark {
+    @apply bg-slate-900/50 backdrop-blur-md border border-slate-800/50;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:border-emerald-500/50;
+  }
+
+  .smooth-shadow {
+    @apply shadow-lg shadow-slate-950/50;
+  }
 }
