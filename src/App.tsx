@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { ExperienceSelector } from "./components/ExperienceSelector";
 import { Terminal } from "./components/Terminal/Terminal";
 import { ScrollExperience } from "./components/ScrollExperience";
-
-type Experience = "terminal" | "scroll" | null;
+import type { Experience } from "./types";
 
 export default function App() {
   const [experience, setExperience] = useState<Experience>(() => {
@@ -26,12 +26,16 @@ export default function App() {
 
   return (
     <>
-      <button
+      <motion.button
         onClick={resetExperience}
-        className="fixed top-4 right-4 z-50 px-4 py-2 text-xs rounded-md border border-slate-700 text-slate-300 hover:bg-slate-800 transition"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="fixed top-4 right-4 z-50 px-4 py-2 text-xs rounded-md border border-slate-700 text-slate-300 hover:bg-slate-800 hover:border-emerald-500/50 transition-all"
       >
         Trocar modo
-      </button>
+      </motion.button>
 
       {experience === "terminal" ? <Terminal /> : <ScrollExperience />}
     </>
