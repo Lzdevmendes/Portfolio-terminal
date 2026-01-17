@@ -7,7 +7,8 @@ import type { Experience } from "./types";
 
 export default function App() {
   const [experience, setExperience] = useState<Experience>(() => {
-    return localStorage.getItem("experience") as Experience;
+    const stored = localStorage.getItem("experience");
+    return (stored === "terminal" || stored === "scroll") ? stored : null;
   });
 
   function handleSelect(value: Experience) {
