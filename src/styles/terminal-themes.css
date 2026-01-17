@@ -17,6 +17,10 @@
   --button-close: #ef4444;
   --button-minimize: #f59e0b;
   --button-maximize: #10b981;
+  --output-success: #10b981;
+  --output-error: #ef4444;
+  --output-info: #94a3b8;
+  --output-warning: #f59e0b;
 }
 
 /* Windows-like (slate blue + cyan accent) */
@@ -32,6 +36,10 @@
   --button-close: #ef4444;
   --button-minimize: #f59e0b;
   --button-maximize: #22d3ee;
+  --output-success: #22d3ee;
+  --output-error: #ef4444;
+  --output-info: #9fb3c8;
+  --output-warning: #fbbf24;
 }
 
 /* Retro CRT (deep green + lime accent) */
@@ -47,6 +55,10 @@
   --button-close: #ef4444;
   --button-minimize: #f59e0b;
   --button-maximize: #32e26a;
+  --output-success: #32e26a;
+  --output-error: #ff6b6b;
+  --output-info: #6de39c;
+  --output-warning: #fbbf24;
 }
 
 /* Shared structure helpers */
@@ -90,3 +102,34 @@
 .terminal-content {
   background: var(--terminal-panel);
 }
+
+/* Output styling by content type */
+.terminal-output-success {
+  color: var(--output-success);
+}
+
+.terminal-output-error {
+  color: var(--output-error);
+}
+
+.terminal-output-info {
+  color: var(--output-info);
+}
+
+.terminal-output-warning {
+  color: var(--output-warning);
+}
+
+/* Command echo styling */
+.terminal-command-echo {
+  color: var(--terminal-accent);
+  font-weight: 500;
+}
+
+/* Section headers in output */
+.terminal-section-header {
+  color: var(--terminal-accent);
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+

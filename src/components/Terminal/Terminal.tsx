@@ -1,75 +1,74 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TerminalWindow } from "./TerminalWindow";
+import { useTerminalTheme } from "./ThemeContext";
+import { useTerminalEngine, type HistoryEntry } from "../../hooks/useTerminalEngine";
 
-type Section = "about" | "skills" | "projects" | "contact" | null;
+function getOutputClassName(type: HistoryEntry["type"]): string {
+  switch (type) {
+    case "success":
+      return "terminal-output-success";
+    case "error":
+      return "terminal-output-error";
+    case "warning":
+      return "terminal-output-warning";
+    case "section":
+      return "terminal-section-header";
+    case "command":
+      return "terminal-command-echo";
+    default:
+      return "terminal-output-info";
+  }
+}
 
 export function Terminal() {
   const [input, setInput] = useState("");
-  const [history, setHistory] = useState<string[]>([
-    "Bem-vindo ao meu portfólio.",
-    "Digite 'help' para começar."
-  ]);
-
-  const [activeSection, setActiveSection] = useState<Section>(null);
-  const [isTyping, setIsTyping] = useState(false);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
   const historyEndRef = useRef<HTMLDivElement>(null);
+  const { setTheme } = useTerminalTheme();
+
+  const {
+    history,
+    isProcessing,
+    activeSection,
+    executeCommand,
+    getPreviousCommand,
+    getNextCommand,
+    getAutocompleteOptions,
+  } = useTerminalEngine({
+    onThemeChange: setTheme,
+  });
 
   useEffect(() => {
     historyEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [history]);
 
-  function handleCommand(command: string) {
-    const cmd = command.toLowerCase().trim();
-
-    // Echo do comando
-    setHistory((prev) => [...prev, `> ${cmd}`]);
-
-    if (cmd === "help") {
-      setIsTyping(true);
-      setTimeout(() => {
-        setHistory((prev) => [
-          ...prev,
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-          "📋 Comandos disponíveis:",
-          "  • about    - Sobre mim",
-          "  • skills   - Minhas habilidades",
-          "  • projects - Projetos em destaque",
-          "  • contact  - Entre em contato",
-          "  • clear    - Limpar terminal",
-          "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
-        ]);
-        setIsTyping(false);
-      }, 300);
-      return;
-    }
-
-    if (cmd === "clear") {
-      setHistory([]);
-      setActiveSection(null);
-      return;
-    }
-
-    if (["about", "skills", "projects", "contact"].includes(cmd)) {
-      setIsTyping(true);
-      setTimeout(() => {
-        setActiveSection(cmd as Section);
-        setIsTyping(false);
-      }, 200);
-      return;
-    }
-
-    setHistory((prev) => [
-      ...prev,
-      "❌ Comando não reconhecido. Digite 'help'."
-    ]);
-  }
+  useEffect(() => {
+    const opts = getAutocompleteOptions(input);
+    setSuggestions(opts);
+  }, [input, getAutocompleteOptions]);
 
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter" && input.trim()) {
-      handleCommand(input);
+      executeCommand(input);
       setInput("");
+      setSuggestions([]);
+    } else if (e.key === "Tab" && suggestions.length > 0) {
+      e.preventDefault();
+      setInput(suggestions[0]);
+      setSuggestions([]);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      const prev = getPreviousCommand();
+      if (prev) setInput(prev);
+      setSuggestions([]);
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      const next = getNextCommand();
+      setInput(next || "");
+      setSuggestions([]);
     }
   }
 
@@ -82,20 +81,20 @@ export function Terminal() {
         className="p-4 sm:p-6 md:p-8 font-mono text-xs sm:text-sm overflow-y-auto leading-relaxed"
       >
         <AnimatePresence mode="popLayout">
-          {history.map((line, index) => (
+          {history.map((entry, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.02 }}
-              className="leading-relaxed mb-1 text-slate-300"
+              className={`leading-relaxed mb-1 ${getOutputClassName(entry.type)}`}
             >
-              {line}
+              {entry.text}
             </motion.div>
           ))}
         </AnimatePresence>
 
-        {isTyping && (
+        {isProcessing && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -111,7 +110,6 @@ export function Terminal() {
           </motion.div>
         )}
 
-        <div ref={historyEndRef} />
         <div ref={historyEndRef} />
       </motion.div>
 
@@ -221,28 +219,62 @@ export function Terminal() {
         )}
       </AnimatePresence>
 
-      {/* Input */}
-      <motion.div
-        initial={{ y: 50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        className="flex items-center gap-2 sm:gap-3 border-t border-slate-800 bg-slate-950/60 backdrop-blur px-4 sm:px-6 py-3 sm:py-4"
-      >
-        <motion.span
-          animate={{ opacity: [1, 0.5, 1] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-          className="text-emerald-400 text-sm sm:text-base"
+      {/* Input + Autocomplete */}
+      <div className="relative border-t border-slate-800">
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="flex items-center gap-2 sm:gap-3 bg-slate-950/60 backdrop-blur px-4 sm:px-6 py-3 sm:py-4"
         >
-          $
-        </motion.span>
-        <input
-          className="flex-1 bg-transparent outline-none text-slate-100 text-sm sm:text-base placeholder:text-slate-600 focus-terminal-inset"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Digite um comando..."
-          autoFocus
-        />
-      </motion.div>
+          <motion.span
+            animate={{ opacity: [1, 0.5, 1] }}
+            transition={{ repeat: Infinity, duration: 1.5 }}
+            className="text-emerald-400 text-sm sm:text-base"
+          >
+            $
+          </motion.span>
+          <input
+            ref={inputRef}
+            className="flex-1 bg-transparent outline-none text-slate-100 text-sm sm:text-base placeholder:text-slate-600 focus-terminal-inset"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Digite um comando... (Tab para sugestões)"
+            autoFocus
+          />
+        </motion.div>
+
+        {/* Autocomplete Suggestions */}
+        <AnimatePresence>
+          {suggestions.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -5 }}
+              className="absolute bottom-full left-0 right-0 bg-slate-900 border border-slate-700 border-b-0 rounded-t px-4 py-2 text-xs sm:text-sm"
+            >
+              <div className="text-slate-400 mb-2">Sugestões (Tab para completar):</div>
+              <div className="flex flex-wrap gap-2">
+                {suggestions.map((suggestion) => (
+                  <motion.button
+                    key={suggestion}
+                    onClick={() => {
+                      setInput(suggestion);
+                      setSuggestions([]);
+                      inputRef.current?.focus();
+                    }}
+                    className="px-2 py-1 bg-slate-800 hover:bg-emerald-500/20 border border-emerald-500/30 rounded text-emerald-400 transition cursor-pointer"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {suggestion}
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </TerminalWindow>
   );
 }
