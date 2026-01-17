@@ -15,11 +15,18 @@ export function ScrollExperience() {
     <>
       <ScrollProgress />
       <Navigation />
-      <main className="pt-16" role="main" aria-label="Conteúdo principal">
-        <About />
-        <Skills />
-        <Projects />
-        <Contact />
+      <main 
+        className="pt-16 pb-12 px-4 sm:px-6 md:px-8 max-w-5xl w-full mx-auto text-terminal"
+        style={{ background: 'var(--color-bg-primary)' }}
+        role="main" 
+        aria-label="Conteúdo principal"
+      >
+        <div className="space-y-12 sm:space-y-16">
+          <About />
+          <Skills />
+          <Projects />
+          <Contact />
+        </div>
       </main>
     </>
   );
