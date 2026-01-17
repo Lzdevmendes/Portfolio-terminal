@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { TerminalWindow } from "./TerminalWindow";
+import { TerminalInput } from "../ui/TerminalInput";
+import { TerminalPanel } from "../ui/TerminalPanel";
+import { TerminalButton } from "../ui/TerminalButton";
 import { useTerminalTheme } from "./ThemeContext";
 import { useTerminalEngine, type HistoryEntry } from "../../hooks/useTerminalEngine";
 
@@ -45,10 +48,11 @@ export function Terminal() {
     historyEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [history]);
 
-  useEffect(() => {
-    const opts = getAutocompleteOptions(input);
+  function handleInputChange(value: string) {
+    setInput(value);
+    const opts = getAutocompleteOptions(value);
     setSuggestions(opts);
-  }, [input, getAutocompleteOptions]);
+  }
 
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter" && input.trim()) {
@@ -74,206 +78,246 @@ export function Terminal() {
 
   return (
     <TerminalWindow>
-      {/* Terminal content */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="p-4 sm:p-6 md:p-8 font-mono text-xs sm:text-sm overflow-y-auto leading-relaxed"
+      {/* Terminal Output Area */}
+      <div 
+        className="flex-1 overflow-y-auto text-terminal text-xs sm:text-sm scrollbar-terminal"
       >
-        <AnimatePresence mode="popLayout">
+        <div className="p-3 sm:p-4 space-y-0.5">
           {history.map((entry, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.02 }}
-              className={`leading-relaxed mb-1 ${getOutputClassName(entry.type)}`}
+              className={`leading-relaxed ${getOutputClassName(entry.type)}`}
+              style={{ color: 'var(--color-text-primary)' }}
             >
               {entry.text}
-            </motion.div>
+            </div>
           ))}
-        </AnimatePresence>
 
-        {isProcessing && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex items-center gap-2 text-emerald-400 mt-2"
-          >
-            <motion.span
-              animate={{ opacity: [1, 0.3, 1] }}
-              transition={{ repeat: Infinity, duration: 1 }}
+          {isProcessing && (
+            <div 
+              className="flex items-center gap-2 mt-2"
+              style={{ color: 'var(--color-accent-primary)' }}
             >
-              ⚡
-            </motion.span>
-            <span>Processando...</span>
-          </motion.div>
-        )}
+              <span className="animate-pulse">⚡</span>
+              <span>Processando...</span>
+            </div>
+          )}
 
-        <div ref={historyEndRef} />
-      </motion.div>
+          <div ref={historyEndRef} />
+        </div>
+      </div>
 
-      {/* Conteúdo Dinâmico */}
+      {/* Dynamic Section Content */}
       <AnimatePresence mode="wait">
         {activeSection && (
-          <motion.div
+          <motion.section
             key={activeSection}
-            initial={{ opacity: 0, y: 20, height: 0 }}
-            animate={{ opacity: 1, y: 0, height: "auto" }}
-            exit={{ opacity: 0, y: -20, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="border-t border-slate-800 p-4 sm:p-6 bg-slate-950/40 backdrop-blur overflow-hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="shrink-0 overflow-hidden"
+            style={{ 
+              background: 'var(--color-bg-tertiary)',
+              borderTop: '1px solid var(--color-border-default)',
+            }}
           >
-            {activeSection === "about" && (
-              <div className="space-y-3">
-                <h2 className="text-base sm:text-lg text-emerald-400 mb-2 font-bold">
-                  👨‍💻 Sobre
-                </h2>
-                <p className="text-slate-300 text-sm leading-relaxed">
-                  Desenvolvedor Full Stack apaixonado por criar experiências digitais únicas.
-                  Especializado em React, TypeScript e Node.js.
-                </p>
-                <div className="flex flex-wrap gap-2 mt-3">
-                  <span className="px-2 py-1 text-xs bg-emerald-500/10 border border-emerald-500/30 rounded text-emerald-400">
-                    3+ anos de experiência
-                  </span>
-                  <span className="px-2 py-1 text-xs bg-indigo-500/10 border border-indigo-500/30 rounded text-indigo-400">
-                    25+ projetos
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {activeSection === "skills" && (
-              <div className="space-y-3">
-                <h2 className="text-base sm:text-lg text-emerald-400 mb-2 font-bold">
-                  🚀 Skills
-                </h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs sm:text-sm">
-                  {["React", "TypeScript", "Node.js", "Java", "Spring Boot", "Docker"].map((skill) => (
-                    <motion.div
-                      key={skill}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="px-3 py-2 bg-slate-800/50 border border-slate-700 rounded text-slate-300 text-center hover:border-emerald-500/50 transition"
+            <div className="p-3 sm:p-4 text-terminal text-xs sm:text-sm">
+              {activeSection === "about" && (
+                <div className="space-y-3">
+                  <h2 
+                    className="font-bold flex items-center gap-2"
+                    style={{ color: 'var(--color-accent-primary)' }}
+                  >
+                    <span>👨‍💻</span> ABOUT
+                  </h2>
+                  <p className="leading-relaxed" style={{ color: 'var(--color-text-primary)' }}>
+                    Desenvolvedor Full Stack apaixonado por criar experiências digitais únicas.
+                    Especializado em React, TypeScript e Node.js.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span 
+                      className="px-2 py-1 text-xs rounded"
+                      style={{ 
+                        background: 'rgba(39, 201, 63, 0.1)', 
+                        border: '1px solid rgba(39, 201, 63, 0.3)',
+                        color: 'var(--color-accent-primary)',
+                      }}
                     >
-                      {skill}
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {activeSection === "projects" && (
-              <div className="space-y-3">
-                <h2 className="text-base sm:text-lg text-emerald-400 mb-2 font-bold">
-                  💼 Projetos
-                </h2>
-                <div className="space-y-2 text-xs sm:text-sm">
-                  {[1, 2, 3].map((num) => (
-                    <motion.div
-                      key={num}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: num * 0.1 }}
-                      className="p-3 bg-slate-800/30 border border-slate-700 rounded hover:border-emerald-500/50 transition"
+                      3+ anos exp.
+                    </span>
+                    <span 
+                      className="px-2 py-1 text-xs rounded"
+                      style={{ 
+                        background: 'rgba(88, 166, 255, 0.1)', 
+                        border: '1px solid rgba(88, 166, 255, 0.3)',
+                        color: 'var(--color-accent-secondary)',
+                      }}
                     >
-                      <div className="font-semibold text-slate-200">Projeto {num}</div>
-                      <div className="text-slate-400 text-xs mt-1">React • TypeScript • Node.js</div>
-                    </motion.div>
-                  ))}
+                      25+ projetos
+                    </span>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {activeSection === "contact" && (
-              <div className="space-y-3">
-                <h2 className="text-base sm:text-lg text-emerald-400 mb-2 font-bold">
-                  📬 Contato
-                </h2>
-                <div className="space-y-2 text-xs sm:text-sm">
-                  <a
-                    href="https://github.com/Lzdevmendes"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block px-3 py-2 bg-slate-800/30 border border-slate-700 rounded hover:border-emerald-500/50 hover:text-emerald-400 transition text-slate-300"
+              {activeSection === "skills" && (
+                <div className="space-y-3">
+                  <h2 
+                    className="font-bold flex items-center gap-2"
+                    style={{ color: 'var(--color-accent-primary)' }}
                   >
-                    🔗 GitHub
-                  </a>
-                  <a
-                    href="mailto:Lzmendestechdev@gmail.com"
-                    className="block px-3 py-2 bg-slate-800/30 border border-slate-700 rounded hover:border-emerald-500/50 hover:text-emerald-400 transition text-slate-300"
-                  >
-                    ✉️ Email
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-3 py-2 bg-slate-800/30 border border-slate-700 rounded hover:border-emerald-500/50 hover:text-emerald-400 transition text-slate-300"
-                  >
-                    💼 LinkedIn
-                  </a>
+                    <span>🚀</span> SKILLS
+                  </h2>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {["React", "TypeScript", "Node.js", "Java", "Spring Boot", "Docker"].map((skill) => (
+                      <TerminalPanel
+                        key={skill}
+                        className="px-2 py-1.5 text-center text-xs transition-colors hover:border-emerald-500/50"
+                      >
+                        <span style={{ color: 'var(--color-text-primary)' }}>{skill}</span>
+                      </TerminalPanel>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </motion.div>
+              )}
+
+              {activeSection === "projects" && (
+                <div className="space-y-3">
+                  <h2 
+                    className="font-bold flex items-center gap-2"
+                    style={{ color: 'var(--color-accent-primary)' }}
+                  >
+                    <span>💼</span> PROJECTS
+                  </h2>
+                  <div className="space-y-2">
+                    {[1, 2, 3].map((num) => (
+                      <TerminalPanel
+                        key={num}
+                        className="p-2 sm:p-3 transition-colors hover:border-emerald-500/50"
+                      >
+                        <div className="font-semibold text-xs sm:text-sm" style={{ color: 'var(--color-text-primary)' }}>
+                          Projeto {num}
+                        </div>
+                        <div className="text-xs mt-0.5" style={{ color: 'var(--color-text-tertiary)' }}>
+                          React • TypeScript • Node.js
+                        </div>
+                      </TerminalPanel>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {activeSection === "contact" && (
+                <div className="space-y-3">
+                  <h2 
+                    className="font-bold flex items-center gap-2"
+                    style={{ color: 'var(--color-accent-primary)' }}
+                  >
+                    <span>📬</span> CONTACT
+                  </h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    <a
+                      href="https://github.com/Lzdevmendes"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="terminal-link px-3 py-2 text-center text-xs rounded"
+                      style={{ 
+                        background: 'var(--color-bg-elevated)', 
+                        border: '1px solid var(--color-border-default)',
+                        display: 'block',
+                      }}
+                    >
+                      🔗 GitHub
+                    </a>
+                    <a
+                      href="mailto:Lzmendestechdev@gmail.com"
+                      className="terminal-link px-3 py-2 text-center text-xs rounded"
+                      style={{ 
+                        background: 'var(--color-bg-elevated)', 
+                        border: '1px solid var(--color-border-default)',
+                        display: 'block',
+                      }}
+                    >
+                      ✉️ Email
+                    </a>
+                    <a
+                      href="#"
+                      className="terminal-link px-3 py-2 text-center text-xs rounded"
+                      style={{ 
+                        background: 'var(--color-bg-elevated)', 
+                        border: '1px solid var(--color-border-default)',
+                        display: 'block',
+                      }}
+                    >
+                      💼 LinkedIn
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
+          </motion.section>
         )}
       </AnimatePresence>
 
-      {/* Input + Autocomplete */}
-      <div className="relative border-t border-slate-800">
-        <motion.div
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="flex items-center gap-2 sm:gap-3 bg-slate-950/60 backdrop-blur px-4 sm:px-6 py-3 sm:py-4"
-        >
-          <motion.span
-            animate={{ opacity: [1, 0.5, 1] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-            className="text-emerald-400 text-sm sm:text-base"
-          >
-            $
-          </motion.span>
-          <input
-            ref={inputRef}
-            className="flex-1 bg-transparent outline-none text-slate-100 text-sm sm:text-base placeholder:text-slate-600 focus-terminal-inset"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Digite um comando... (Tab para sugestões)"
-            autoFocus
-          />
-        </motion.div>
-
-        {/* Autocomplete Suggestions */}
+      {/* Command Input */}
+      <div 
+        className="shrink-0 relative"
+        style={{ 
+          background: 'var(--color-bg-tertiary)',
+          borderTop: '1px solid var(--color-border-default)',
+        }}
+      >
+        {/* Autocomplete */}
         <AnimatePresence>
           {suggestions.length > 0 && (
             <motion.div
-              initial={{ opacity: 0, y: -5 }}
+              initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -5 }}
-              className="absolute bottom-full left-0 right-0 bg-slate-900 border border-slate-700 border-b-0 rounded-t px-4 py-2 text-xs sm:text-sm"
+              exit={{ opacity: 0, y: 5 }}
+              className="absolute bottom-full left-0 right-0 p-2 sm:p-3 text-terminal text-xs"
+              style={{ background: 'var(--color-bg-elevated)', borderTop: '1px solid var(--color-border-default)' }}
             >
-              <div className="text-slate-400 mb-2">Sugestões (Tab para completar):</div>
-              <div className="flex flex-wrap gap-2">
-                {suggestions.map((suggestion) => (
-                  <motion.button
-                    key={suggestion}
+              <div className="mb-2" style={{ color: 'var(--color-text-tertiary)' }}>Tab to complete:</div>
+              <div className="flex flex-wrap gap-1.5">
+                {suggestions.map((s) => (
+                  <TerminalButton
+                    key={s}
+                    variant="primary"
                     onClick={() => {
-                      setInput(suggestion);
+                      setInput(s);
                       setSuggestions([]);
                       inputRef.current?.focus();
                     }}
-                    className="px-2 py-1 bg-slate-800 hover:bg-emerald-500/20 border border-emerald-500/30 rounded text-emerald-400 transition cursor-pointer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="text-xs"
                   >
-                    {suggestion}
-                  </motion.button>
+                    {s}
+                  </TerminalButton>
                 ))}
               </div>
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Input Line */}
+        <div className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3">
+          <span 
+            className="text-terminal text-sm font-bold animate-pulse"
+            style={{ color: 'var(--color-accent-primary)' }}
+          >
+            $
+          </span>
+          <TerminalInput
+            ref={inputRef}
+            type="text"
+            value={input}
+            onChange={(e) => handleInputChange(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="type 'help' to start..."
+            autoFocus
+            fullWidth
+            className="bg-transparent border-0 focus:ring-0 focus:shadow-none"
+          />
+        </div>
       </div>
     </TerminalWindow>
   );

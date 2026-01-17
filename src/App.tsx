@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { TerminalButton } from "./components/ui/TerminalButton";
 import { ExperienceSelector } from "./components/ExperienceSelector";
 import { Terminal } from "./components/Terminal/Terminal";
 import { ScrollExperience } from "./components/ScrollExperience";
@@ -30,22 +30,24 @@ export default function App() {
       {/* Skip to main content link (accessibility) */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-emerald-500 focus:text-slate-950 focus:rounded-md focus:font-bold"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded text-terminal font-bold"
+        style={{ 
+          background: 'var(--color-accent-primary)',
+          color: 'var(--color-bg-primary)',
+        }}
       >
         Pular para o conteúdo principal
       </a>
 
-      <motion.button
+      {/* Mode Switch Button */}
+      <TerminalButton
         onClick={resetExperience}
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="fixed top-4 right-4 z-50 px-4 py-2 text-xs rounded-md border border-slate-700 text-slate-300 hover:bg-slate-800 hover:border-emerald-500/50 transition-all focus-terminal"
+        className="fixed top-3 right-3 sm:top-4 sm:right-4"
+        style={{ zIndex: 'var(--z-fixed)' }}
         aria-label="Trocar modo de visualização"
       >
-        Trocar modo
-      </motion.button>
+        ← trocar modo
+      </TerminalButton>
 
       <div id="main-content">
         {experience === "terminal" ? <Terminal /> : <ScrollExperience />}
