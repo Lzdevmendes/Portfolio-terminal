@@ -261,9 +261,9 @@ export function Terminal() {
                     ))}
                   </div>
                 </div>
-                  )}
+              )}
 
-                  {activeSection === "contact" && (
+              {activeSection === "contact" && (
                 <div className="space-y-3">
                   <h2 
                     className="font-bold flex items-center gap-2"

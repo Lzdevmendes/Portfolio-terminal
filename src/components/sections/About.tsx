@@ -56,7 +56,7 @@ export function About() {
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 pt-4">
-          {STATS.map((stat, index) => (
+          {STATS.map((stat) => (
             <div
               key={stat.label}
               className="p-4 sm:p-6 rounded-xl border border-slate-800 bg-gradient-to-br from-slate-900/80 to-slate-950/80 hover:border-emerald-500/50 transition-colors group"

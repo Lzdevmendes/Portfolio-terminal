@@ -1,5 +1,4 @@
 import { useTerminalTheme } from "./ThemeContext";
-import { TerminalButton } from "../ui/TerminalButton";
 import type { PropsWithChildren } from "react";
 
 type Props = PropsWithChildren<{
