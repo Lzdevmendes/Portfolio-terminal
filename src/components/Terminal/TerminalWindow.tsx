@@ -17,7 +17,6 @@ export function TerminalWindow({ children, hostname = "luizmendes@portfolio" }: 
         transition: 'background-color 0.3s ease' 
       }}
     >
-      {/* Terminal Window */}
       <div 
         className="terminal-window-frame w-full max-w-5xl h-[92vh] sm:h-[88vh] md:h-[82vh] flex flex-col rounded-lg"
         style={{ 
@@ -27,7 +26,6 @@ export function TerminalWindow({ children, hostname = "luizmendes@portfolio" }: 
           transition: 'all 0.3s ease'
         }}
       >
-        {/* Title Bar */}
         <header 
           className="terminal-header flex items-center justify-between px-3 py-2 sm:px-4 sm:py-2.5 shrink-0"
           style={{
@@ -38,9 +36,7 @@ export function TerminalWindow({ children, hostname = "luizmendes@portfolio" }: 
             transition: 'background-color 0.3s ease'
           }}
         >
-          {/* Left: Window Controls */}
           <div className="flex items-center gap-3 sm:gap-4">
-            {/* Traffic Lights */}
             <div className="flex items-center gap-1.5 sm:gap-2">
               <button 
                 aria-label="Fechar"
@@ -70,8 +66,7 @@ export function TerminalWindow({ children, hostname = "luizmendes@portfolio" }: 
                 }}
               />
             </div>
-            
-            {/* Tab / Title */}
+
             <div 
               className="hidden sm:flex items-center gap-2 px-3 py-1 rounded text-xs text-terminal"
               style={{ 
@@ -85,7 +80,6 @@ export function TerminalWindow({ children, hostname = "luizmendes@portfolio" }: 
             </div>
           </div>
 
-          {/* Right: Theme Selector */}
           <div className="flex items-center gap-2">
             <span className="text-xs-mono hidden sm:inline" style={{ color: 'var(--color-text-tertiary)' }}>
               theme:
@@ -108,7 +102,6 @@ export function TerminalWindow({ children, hostname = "luizmendes@portfolio" }: 
           </div>
         </header>
 
-        {/* Terminal Body */}
         <main 
           className="flex-1 flex flex-col overflow-hidden"
           style={{ 

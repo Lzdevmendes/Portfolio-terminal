@@ -28,7 +28,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const value = useMemo(() => ({ theme, setTheme }), [theme]);
 
-  // Apply theme class to a wrapper to scope CSS variables
   return (
     <ThemeContext.Provider value={value}>
       <div className={`theme-${theme}`}>

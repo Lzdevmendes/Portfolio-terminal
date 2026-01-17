@@ -6,7 +6,6 @@ export function About() {
   return (
     <Section id="about" ariaLabel="Seção sobre mim">
       <div className="flex flex-col gap-8 md:gap-12">
-        {/* Título animado */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -35,7 +34,6 @@ export function About() {
           </div>
         </motion.div>
 
-        {/* Conteúdo principal */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -57,7 +55,6 @@ export function About() {
           </p>
         </motion.div>
 
-        {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 pt-4">
           {STATS.map((stat, index) => (
             <div

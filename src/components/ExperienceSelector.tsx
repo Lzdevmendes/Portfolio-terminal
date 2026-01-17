@@ -10,33 +10,27 @@ export function ExperienceSelector({ onSelect }: Props) {
       className="min-h-screen w-full flex items-center justify-center p-2 sm:p-4 md:p-8"
       style={{ background: 'var(--color-bg-primary)' }}
     >
-      {/* Terminal Window */}
       <div 
         className="terminal-window-frame w-full max-w-2xl flex flex-col rounded-none sm:rounded-lg"
       >
-        {/* Title Bar */}
         <header className="terminal-header flex items-center justify-between px-3 py-2 sm:px-4 sm:py-2.5">
           <div className="flex items-center gap-3 sm:gap-4">
-            {/* Traffic Lights */}
             <div className="flex items-center gap-1.5 sm:gap-2">
               <span className="traffic-light traffic-light-red" />
               <span className="traffic-light traffic-light-yellow" />
               <span className="traffic-light traffic-light-green" />
             </div>
             
-            {/* Title */}
             <span className="text-terminal text-xs-mono" style={{ color: 'var(--color-text-secondary)' }}>
               welcome.sh
             </span>
           </div>
         </header>
 
-        {/* Terminal Body */}
         <main 
           className="p-4 sm:p-6 text-terminal text-sm-mono"
           style={{ background: 'var(--color-bg-secondary)' }}
         >
-          {/* Welcome Message */}
           <div className="space-y-1 mb-6">
             <p style={{ color: 'var(--color-text-tertiary)' }}>$ whoami</p>
             <p className="text-lg sm:text-xl font-bold" style={{ color: 'var(--color-accent-primary)' }}>
@@ -47,7 +41,6 @@ export function ExperienceSelector({ onSelect }: Props) {
             </p>
           </div>
 
-          {/* Prompt */}
           <div className="space-y-1 mb-6">
             <p style={{ color: 'var(--color-text-tertiary)' }}>$ cat experience.txt</p>
             <p className="text-xs sm:text-sm" style={{ color: 'var(--color-text-primary)' }}>
@@ -55,7 +48,6 @@ export function ExperienceSelector({ onSelect }: Props) {
             </p>
           </div>
 
-          {/* Options */}
           <div className="space-y-3">
             <TerminalPanel 
               className="p-3 sm:p-4 cursor-pointer transition-transform hover:scale-[1.02] active:scale-[0.98] hover:border-emerald-500"
@@ -92,7 +84,6 @@ export function ExperienceSelector({ onSelect }: Props) {
             </TerminalPanel>
           </div>
 
-          {/* Footer */}
           <div className="mt-6 pt-4" style={{ borderTop: '1px solid var(--color-border-default)' }}>
             <p className="text-xs flex items-center gap-2" style={{ color: 'var(--color-text-tertiary)' }}>
               <span style={{ color: 'var(--color-accent-primary)' }}>$</span>

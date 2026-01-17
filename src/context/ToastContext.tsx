@@ -1,8 +1,3 @@
-/**
- * Toast Context & Provider
- * Global toast notification system
- */
-
 import { createContext, useContext, useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { ReactNode } from "react";
@@ -63,9 +58,6 @@ export function useToast() {
   return context;
 }
 
-/**
- * Toast Container Component
- */
 interface ToastContainerProps {
   toasts: Toast[];
   onRemove: (id: string) => void;

@@ -1,7 +1,3 @@
-/**
- * Hook customizado para gerenciar state do formulário
- */
-
 import { useState } from "react";
 import type { FormData } from "../types";
 

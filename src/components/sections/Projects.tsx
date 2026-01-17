@@ -14,11 +14,9 @@ export function Projects() {
             key={project.id}
             className="group relative"
           >
-            {/* Card simples sem 3D */}
             <div
               className="relative border border-slate-800 rounded-2xl p-5 sm:p-6 bg-gradient-to-br from-slate-900/80 to-slate-950/80 backdrop-blur hover:border-emerald-500/50 transition-colors h-full flex flex-col"
             >
-              {/* Badge de número */}
               <div className="absolute -top-3 -left-3 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-emerald-500 to-indigo-500 flex items-center justify-center text-xs sm:text-sm font-bold">
                 {project.id}
               </div>
@@ -32,7 +30,6 @@ export function Projects() {
                   {project.description}
                 </p>
 
-                {/* Tags de tecnologias */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech) => (
                     <span
@@ -44,7 +41,6 @@ export function Projects() {
                   ))}
                 </div>
 
-                {/* Link simples */}
                 <a
                   href={project.github}
                   target="_blank"

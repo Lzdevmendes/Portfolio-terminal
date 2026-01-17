@@ -1,7 +1,3 @@
-/**
- * Tipos customizados da aplicação
- */
-
 export type Section = "about" | "skills" | "projects" | "contact" | null;
 
 export interface Skill {

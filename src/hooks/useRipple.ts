@@ -1,13 +1,7 @@
-/**
- * Ripple Effect Hook
- * Creates a ripple animation on click for visual feedback
- */
-
 import { useRef, useCallback } from "react";
 
-
 export function useRipple() {
-  const containerRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLElement | null>(null);
 
   const createRipple = useCallback((event: React.MouseEvent<HTMLElement>) => {
     const container = containerRef.current;

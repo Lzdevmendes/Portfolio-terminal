@@ -1,11 +1,3 @@
-/**
- * Design System Constants
- * Centralized configuration for consistency across the application
- */
-
-/* ========================================
-   SOCIAL LINKS
-   ======================================== */
 export const SOCIAL_LINKS = [
   {
     name: "GitHub",
@@ -27,9 +19,6 @@ export const SOCIAL_LINKS = [
   },
 ] as const;
 
-/* ========================================
-   SKILLS
-   ======================================== */
 export const SKILLS_LIST = [
   { name: "React", level: 95, category: "Frontend" },
   { name: "TypeScript", level: 90, category: "Language" },
@@ -42,9 +31,6 @@ export const SKILLS_LIST = [
   { name: "Linux", level: 70, category: "OS" },
 ] as const;
 
-/* ========================================
-   PROFILE DATA
-   ======================================== */
 export const ROLES = [
   "Full Stack Developer",
   "React Specialist",
@@ -57,9 +43,6 @@ export const STATS = [
   { label: "Tecnologias", value: "12+" },
 ] as const;
 
-/* ========================================
-   ANIMATION TIMING (Framer Motion)
-   ======================================== */
 export const ANIMATION = {
   duration: 0.6,
   delaySmall: 0.1,
@@ -75,9 +58,6 @@ export const ANIMATION = {
   easeInOut: [0.4, 0, 0.2, 1] as const,
 } as const;
 
-/* ========================================
-   SPACING SYSTEM (based on 4px)
-   ======================================== */
 export const SPACING = {
   section: {
     mobile: "py-12 px-4",
@@ -99,17 +79,16 @@ export const SPACING = {
   },
 } as const;
 
-/* Color palette */
 export const COLORS = {
   primary: {
-    light: "#10b981", // emerald-500
-    DEFAULT: "#059669", // emerald-600
-    dark: "#047857", // emerald-700
+   light: "#10b981",
+   DEFAULT: "#059669",
+   dark: "#047857",
   },
   secondary: {
-    light: "#818cf8", // indigo-400
-    DEFAULT: "#6366f1", // indigo-500
-    dark: "#4f46e5", // indigo-600
+   light: "#818cf8",
+   DEFAULT: "#6366f1",
+   dark: "#4f46e5",
   },
   slate: {
     50: "#f8fafc",
@@ -123,7 +102,6 @@ export const COLORS = {
   },
 } as const;
 
-/* Breakpoints */
 export const BREAKPOINTS = {
   sm: "640px",
   md: "768px",

@@ -44,6 +44,7 @@ export function Terminal() {
     history,
     isProcessing,
     activeSection,
+    clearActiveSection,
     executeCommand,
     getPreviousCommand,
     getNextCommand,
@@ -53,22 +54,20 @@ export function Terminal() {
   });
 
   useEffect(() => {
-    // Persistência do input
     localStorage.setItem('terminal-input', input);
   }, [input]);
 
   useEffect(() => {
-    // Persistência do viewMode
     localStorage.setItem('terminal-viewMode', String(viewMode));
   }, [viewMode]);
 
-  // Detectar quando activeSection é 'view' e ativar viewMode
-  if (activeSection === 'view' && !viewMode) {
-    setViewMode(true);
-  }
+  useEffect(() => {
+    if (activeSection === 'view') {
+      setViewMode(true);
+    }
+  }, [activeSection]);
 
   useEffect(() => {
-    // Auto-scroll apenas se usuário não fez scroll manual
     if (!userHasScrolled && historyEndRef.current) {
       historyEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
@@ -82,7 +81,6 @@ export function Terminal() {
       const { scrollTop, scrollHeight, clientHeight } = outputElement;
       const isAtBottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 10;
       
-      // Se usuário scrollou para o topo, marcar que fez scroll manual
       if (!isAtBottom) {
         setUserHasScrolled(true);
       } else {
@@ -105,7 +103,6 @@ export function Terminal() {
       executeCommand(input);
       setInput("");
       setSuggestions([]);
-      // Reset scroll quando comando é executado
       setUserHasScrolled(false);
     } else if (e.key === "Tab" && suggestions.length > 0) {
       e.preventDefault();
@@ -127,10 +124,13 @@ export function Terminal() {
   return (
     <>
       {viewMode ? (
-        <ViewMode onClose={() => setViewMode(false)} />
+        <ViewMode onClose={() => {
+          clearActiveSection();
+          setViewMode(false);
+          localStorage.removeItem('terminal-viewMode');
+        }} />
       ) : (
         <TerminalWindow>
-      {/* Terminal Output Area */}
       <div 
         ref={outputRef}
         className="flex-1 overflow-y-auto text-terminal text-sm scrollbar-terminal"
@@ -166,7 +166,6 @@ export function Terminal() {
         </div>
       </div>
 
-      {/* Dynamic Section Content */}
       <AnimatePresence mode="wait">
         {activeSection && (
           <motion.section
@@ -225,7 +224,6 @@ export function Terminal() {
                     className="font-bold flex items-center gap-2"
                     style={{ color: 'var(--color-accent-primary)' }}
                   >
-                    <span>🚀</span> SKILLS
                   </h2>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {["React", "TypeScript", "Node.js", "Java", "Spring Boot", "Docker"].map((skill) => (
@@ -233,7 +231,6 @@ export function Terminal() {
                         key={skill}
                         className="px-2 py-1.5 text-center text-xs transition-colors hover:border-emerald-500/50"
                       >
-                        <span style={{ color: 'var(--color-text-primary)' }}>{skill}</span>
                       </TerminalPanel>
                     ))}
                   </div>
@@ -264,9 +261,9 @@ export function Terminal() {
                     ))}
                   </div>
                 </div>
-              )}
+                  )}
 
-              {activeSection === "contact" && (
+                  {activeSection === "contact" && (
                 <div className="space-y-3">
                   <h2 
                     className="font-bold flex items-center gap-2"

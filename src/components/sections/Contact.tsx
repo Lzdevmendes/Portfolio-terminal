@@ -75,7 +75,6 @@ export function Contact() {
           oportunidades de fazer parte da sua visão.
         </p>
 
-        {/* Redes sociais */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-10 sm:mb-12">
           {SOCIAL_LINKS.map((social, index) => (
             <motion.a
@@ -91,7 +90,6 @@ export function Contact() {
               whileTap={{ scale: 0.98 }}
               className="group relative p-4 sm:p-6 rounded-2xl border border-slate-800 bg-slate-900/50 backdrop-blur hover:border-slate-600 transition overflow-hidden"
             >
-              {/* Gradiente de fundo ao hover */}
               <motion.div
                 className={`absolute inset-0 bg-gradient-to-br ${social.color} opacity-0 group-hover:opacity-10 transition-opacity`}
               />
@@ -109,7 +107,6 @@ export function Contact() {
           ))}
         </div>
 
-        {/* Formulário */}
         <motion.form
           onSubmit={handleSubmit}
           initial={{ opacity: 0, y: 30 }}
@@ -118,7 +115,6 @@ export function Contact() {
           transition={{ delay: ANIMATION.delayMedium }}
           className="space-y-4 sm:space-y-6"
         >
-          {/* Nome */}
           <div className="relative">
             <motion.label
               htmlFor="name"
@@ -143,7 +139,6 @@ export function Contact() {
             />
           </div>
 
-          {/* Email */}
           <div className="relative">
             <motion.label
               htmlFor="email"
@@ -168,7 +163,6 @@ export function Contact() {
             />
           </div>
 
-          {/* Mensagem */}
           <div className="relative">
             <motion.label
               htmlFor="message"
@@ -195,7 +189,6 @@ export function Contact() {
             />
           </div>
 
-          {/* Botão */}
           <motion.button
             type="submit"
             whileHover={{ scale: 1.02, y: -2 }}

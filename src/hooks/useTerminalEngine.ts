@@ -40,11 +40,9 @@ export function useTerminalEngine(options?: UseTerminalEngineOptions) {
     const isFirstWord = parts.length === 1;
 
     if (isFirstWord) {
-      // Autocomplete commands
       return AVAILABLE_COMMANDS.filter((cmd) => cmd.startsWith(currentWord));
     }
 
-    // Autocomplete theme names for theme command
     const firstWord = parts[0];
     if (firstWord === "theme") {
       return VALID_THEMES.filter((t) => t.startsWith(currentWord));
@@ -57,7 +55,6 @@ export function useTerminalEngine(options?: UseTerminalEngineOptions) {
     const parts = input.toLowerCase().trim().split(/\s+/);
     const cmd = parts[0] as TerminalCommand;
 
-    // Theme command
     if (cmd === "theme") {
       const theme = parts[1] as TerminalTheme | undefined;
       if (!theme) {
@@ -83,7 +80,6 @@ export function useTerminalEngine(options?: UseTerminalEngineOptions) {
       };
     }
 
-    // Help command
     if (cmd === "help") {
       return {
         output: [
@@ -95,21 +91,24 @@ export function useTerminalEngine(options?: UseTerminalEngineOptions) {
           { text: "  • contact  - Entre em contato", type: "info" },
           { text: "  • view     - Ver tudo de forma fluída", type: "info" },
           { text: "  • theme    - Mudar tema (ubuntu|windows|retro)", type: "info" },
-          { text: "  • clear    - Limpar terminal", type: "info" },
+          { text: "  • clear    - Limpar terminal / limpar histórico e terminal (all)", type: "info" },
           { text: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", type: "info" }
         ]
       };
     }
 
-    // Clear command
     if (cmd === "clear") {
+      const clearAll = parts[1] === "all";
+      if (clearAll) {
+        commandHistoryRef.current = [];
+        historyIndexRef.current = -1;
+      }
       return {
         output: [],
         section: null
       };
     }
 
-    // View command (scroll experience)
     if (cmd === "view") {
       return {
         output: [
@@ -119,7 +118,6 @@ export function useTerminalEngine(options?: UseTerminalEngineOptions) {
       };
     }
 
-    // Section commands
     if (["about", "skills", "projects", "contact"].includes(cmd)) {
       return {
         output: [
@@ -129,7 +127,6 @@ export function useTerminalEngine(options?: UseTerminalEngineOptions) {
       };
     }
 
-    // Unknown command
     return {
       output: [
         { text: "❌ Comando não reconhecido. Digite 'help'.", type: "error" }
@@ -140,14 +137,11 @@ export function useTerminalEngine(options?: UseTerminalEngineOptions) {
   const executeCommand = useCallback((input: string) => {
     setIsProcessing(true);
 
-    // Add to command history for arrow key navigation
     commandHistoryRef.current.push(input);
     historyIndexRef.current = commandHistoryRef.current.length;
 
-    // Echo the command
     setHistory((prev) => [...prev, { text: `> ${input}`, type: "command" }]);
 
-    // Parse and execute
     setTimeout(() => {
       const result = parseCommand(input);
 
@@ -165,6 +159,10 @@ export function useTerminalEngine(options?: UseTerminalEngineOptions) {
 
   const clearHistory = useCallback(() => {
     setHistory([]);
+    setActiveSection(null);
+  }, []);
+
+  const clearActiveSection = useCallback(() => {
     setActiveSection(null);
   }, []);
 
@@ -191,6 +189,7 @@ export function useTerminalEngine(options?: UseTerminalEngineOptions) {
     activeSection,
     executeCommand,
     clearHistory,
+    clearActiveSection,
     getPreviousCommand,
     getNextCommand,
     getAutocompleteOptions
