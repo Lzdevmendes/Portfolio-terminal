@@ -27,7 +27,7 @@ const itemVariants = {
 
 export function Skills() {
   return (
-    <Section id="skills">
+    <Section id="skills" ariaLabel="Minhas habilidades técnicas">
       <motion.h2
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}

@@ -1,7 +1,11 @@
 /**
- * Constantes da aplicação
+ * Design System Constants
+ * Centralized configuration for consistency across the application
  */
 
+/* ========================================
+   NAVIGATION
+   ======================================== */
 export const NAV_ITEMS = [
   { id: "about", label: "Sobre" },
   { id: "skills", label: "Skills" },
@@ -9,6 +13,9 @@ export const NAV_ITEMS = [
   { id: "contact", label: "Contato" },
 ] as const;
 
+/* ========================================
+   SOCIAL LINKS
+   ======================================== */
 export const SOCIAL_LINKS = [
   {
     name: "GitHub",
@@ -30,6 +37,9 @@ export const SOCIAL_LINKS = [
   },
 ] as const;
 
+/* ========================================
+   SKILLS
+   ======================================== */
 export const SKILLS_LIST = [
   { name: "React", level: 95, category: "Frontend" },
   { name: "TypeScript", level: 90, category: "Language" },
@@ -42,6 +52,9 @@ export const SKILLS_LIST = [
   { name: "Linux", level: 70, category: "OS" },
 ] as const;
 
+/* ========================================
+   PROFILE DATA
+   ======================================== */
 export const ROLES = [
   "Full Stack Developer",
   "React Specialist",
@@ -54,13 +67,46 @@ export const STATS = [
   { label: "Tecnologias", value: "12+" },
 ] as const;
 
-/* Animation timing */
+/* ========================================
+   ANIMATION TIMING (Framer Motion)
+   ======================================== */
 export const ANIMATION = {
   duration: 0.6,
   delaySmall: 0.1,
   delayMedium: 0.2,
   delayLarge: 0.3,
   staggerChildren: 0.08,
+  spring: {
+    type: "spring" as const,
+    stiffness: 300,
+    damping: 30,
+  },
+  easeOut: [0.22, 1, 0.36, 1] as const,
+  easeInOut: [0.4, 0, 0.2, 1] as const,
+} as const;
+
+/* ========================================
+   SPACING SYSTEM (based on 4px)
+   ======================================== */
+export const SPACING = {
+  section: {
+    mobile: "py-12 px-4",
+    tablet: "py-16 px-6",
+    desktop: "py-20 px-8",
+  },
+  container: {
+    sm: "max-w-3xl",
+    md: "max-w-4xl",
+    lg: "max-w-6xl",
+    xl: "max-w-7xl",
+  },
+  gap: {
+    xs: "gap-2",
+    sm: "gap-4",
+    md: "gap-6",
+    lg: "gap-8",
+    xl: "gap-12",
+  },
 } as const;
 
 /* Color palette */

@@ -7,7 +7,7 @@ export function Projects() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
-    <Section id="projects">
+    <Section id="projects" ariaLabel="Projetos em destaque">
       <motion.h2
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}

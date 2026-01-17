@@ -233,7 +233,7 @@ export function Terminal() {
           $
         </motion.span>
         <input
-          className="flex-1 bg-transparent outline-none text-slate-100 text-sm sm:text-base placeholder:text-slate-600"
+          className="flex-1 bg-transparent outline-none text-slate-100 text-sm sm:text-base placeholder:text-slate-600 focus-terminal-inset"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}

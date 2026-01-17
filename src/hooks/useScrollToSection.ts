@@ -1,9 +1,9 @@
 export function useScrollToSection() {
   function scrollTo(id: string) {
-    const section = document.getElementById(id);
-    if (!section) return;
+    const element = document.getElementById(id);
+    if (!element) return;
 
-    section.scrollIntoView({
+    element.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });

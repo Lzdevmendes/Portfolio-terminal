@@ -4,7 +4,7 @@ import { ROLES, STATS, ANIMATION } from "../../constants";
 
 export function About() {
   return (
-    <Section id="about">
+    <Section id="about" ariaLabel="Seção sobre mim">
       <div className="flex flex-col gap-8 md:gap-12">
         {/* Título animado */}
         <motion.div
@@ -13,7 +13,7 @@ export function About() {
           viewport={{ once: true }}
           transition={{ duration: ANIMATION.duration }}
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 leading-tight text-glow-sm">
             Luiz Mendes
           </h1>
 

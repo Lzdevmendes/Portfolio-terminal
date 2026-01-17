@@ -20,7 +20,7 @@ export function Contact() {
   }
 
   return (
-    <Section id="contact">
+    <Section id="contact" ariaLabel="Entre em contato">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
