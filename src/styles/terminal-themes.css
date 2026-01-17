@@ -67,18 +67,29 @@
 .theme-retro .terminal-window {
   background: var(--terminal-bg);
   color: var(--terminal-text);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .terminal-header {
   background: var(--header-bg);
   color: var(--header-fg);
   border-bottom: 1px solid var(--terminal-border);
+  user-select: none;
 }
 
 .terminal-controls .btn {
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 9999px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.terminal-controls .btn:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
 }
 
 .theme-ubuntu .terminal-controls .btn.close,
@@ -106,30 +117,37 @@
 /* Output styling by content type */
 .terminal-output-success {
   color: var(--output-success);
+  font-family: var(--terminal-font);
 }
 
 .terminal-output-error {
   color: var(--output-error);
+  font-family: var(--terminal-font);
+  font-weight: 500;
 }
 
 .terminal-output-info {
   color: var(--output-info);
+  font-family: var(--terminal-font);
 }
 
 .terminal-output-warning {
   color: var(--output-warning);
+  font-family: var(--terminal-font);
 }
 
 /* Command echo styling */
 .terminal-command-echo {
   color: var(--terminal-accent);
+  font-family: var(--terminal-font);
   font-weight: 500;
 }
 
-/* Section headers in output */
+/* Section headers */
 .terminal-section-header {
   color: var(--terminal-accent);
-  font-weight: bold;
-  margin-top: 0.5rem;
+  font-family: var(--terminal-font);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
-

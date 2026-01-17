@@ -1,0 +1,267 @@
+/* ==========================================================================
+   TERMINAL DESIGN SYSTEM
+   Design tokens for consistent terminal-like UI
+   ========================================================================== */
+
+:root {
+  /* Typography */
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.875rem;     /* 14px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --line-height-tight: 1.4;
+  --line-height-normal: 1.6;
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+
+  /* Colors - Terminal Dark Theme (GitHub inspired) */
+  --color-bg-primary: #0a0a0f;      /* Page background */
+  --color-bg-secondary: #0d1117;    /* Panel background */
+  --color-bg-tertiary: #161b22;     /* Card background */
+  --color-bg-elevated: #21262d;     /* Hover/elevated background */
+  
+  --color-border-default: #30363d;  /* Default borders */
+  --color-border-muted: #21262d;    /* Subtle borders */
+  --color-border-focus: #27c93f;    /* Focus ring */
+  
+  --color-text-primary: #e6edf3;    /* Main text */
+  --color-text-secondary: #8b949e;  /* Secondary text */
+  --color-text-tertiary: #6e7681;   /* Muted text */
+  --color-text-placeholder: #484f58;/* Placeholder */
+  
+  --color-accent-primary: #27c93f;  /* Success/green */
+  --color-accent-secondary: #58a6ff;/* Info/blue */
+  --color-accent-warning: #ffbd2e;  /* Warning/yellow */
+  --color-accent-error: #ff5f56;    /* Error/red */
+  
+  --color-terminal-cursor: #27c93f; /* Cursor/caret */
+  --color-terminal-selection: rgba(39, 201, 63, 0.15);
+
+  /* Spacing (base 4px system) */
+  --space-0: 0;
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-10: 2.5rem;  /* 40px */
+  --space-12: 3rem;    /* 48px */
+
+  /* Border radius */
+  --radius-none: 0;
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.375rem;  /* 6px */
+  --radius-lg: 0.5rem;    /* 8px */
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 8px rgba(39, 201, 63, 0.4);
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Z-index scale */
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 30;
+  --z-modal-backdrop: 40;
+  --z-modal: 50;
+  --z-popover: 60;
+  --z-tooltip: 70;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY UTILITIES
+   ========================================================================== */
+
+.text-terminal {
+  font-family: var(--font-mono);
+  font-variant-ligatures: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.text-xs-mono {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.text-sm-mono {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.text-base-mono {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+/* ==========================================================================
+   TERMINAL UI COMPONENTS BASE
+   ========================================================================== */
+
+/* Terminal Window Frame */
+.terminal-window-frame {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-default);
+  box-shadow: var(--shadow-xl), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+/* Terminal Header */
+.terminal-header {
+  background: linear-gradient(180deg, var(--color-bg-elevated) 0%, var(--color-bg-tertiary) 100%);
+  border-bottom: 1px solid var(--color-border-default);
+  user-select: none;
+}
+
+/* Traffic Lights */
+.traffic-light {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  transition: transform var(--transition-fast);
+}
+
+.traffic-light:hover {
+  transform: scale(1.1);
+}
+
+.traffic-light-red {
+  background: var(--color-accent-error);
+}
+
+.traffic-light-yellow {
+  background: var(--color-accent-warning);
+}
+
+.traffic-light-green {
+  background: var(--color-accent-primary);
+}
+
+/* Terminal Button Base */
+.terminal-button {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  user-select: none;
+}
+
+.terminal-button:hover {
+  background: var(--color-bg-elevated);
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-primary);
+}
+
+.terminal-button:active {
+  transform: scale(0.98);
+}
+
+.terminal-button:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Primary variant */
+.terminal-button-primary {
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-primary);
+}
+
+.terminal-button-primary:hover {
+  background: rgba(39, 201, 63, 0.1);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Terminal Input Base */
+.terminal-input {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  padding: var(--space-2) var(--space-3);
+  background: transparent;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  outline: none;
+  transition: all var(--transition-base);
+  caret-color: var(--color-terminal-cursor);
+}
+
+.terminal-input::placeholder {
+  color: var(--color-text-placeholder);
+}
+
+.terminal-input:focus {
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 2px rgba(39, 201, 63, 0.1);
+}
+
+.terminal-input::selection {
+  background: var(--color-terminal-selection);
+}
+
+/* Card/Panel */
+.terminal-panel {
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-base);
+}
+
+.terminal-panel:hover {
+  border-color: var(--color-border-muted);
+}
+
+/* Link */
+.terminal-link {
+  color: var(--color-accent-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.terminal-link:hover {
+  color: var(--color-accent-primary);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   UTILITIES
+   ========================================================================== */
+
+.scrollbar-terminal::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-terminal::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+.scrollbar-terminal::-webkit-scrollbar-thumb {
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-sm);
+}
+
+.scrollbar-terminal::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-default);
+}

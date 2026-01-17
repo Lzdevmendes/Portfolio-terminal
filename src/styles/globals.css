@@ -1,3 +1,6 @@
+/* Import Design System first */
+@import './design-system.css';
+
 /* Import terminal themes and aesthetic effects */
 @import './terminal-themes.css';
 @import './terminal-effects.css';
