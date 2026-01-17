@@ -3,7 +3,6 @@
  */
 
 export type Section = "about" | "skills" | "projects" | "contact" | null;
-export type Experience = "terminal" | "scroll" | null;
 
 export interface Skill {
   name: string;

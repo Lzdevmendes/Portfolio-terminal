@@ -1,7 +1,6 @@
-git clone https://github.com/Lzdevmendes/portfolio-terminal.git
 # Portfolio Terminal
 
-Portfólio interativo com duas experiências de navegação: Terminal (linha de comando) e Scroll (página clássica), construído em React + TypeScript com identidade de terminal.
+Portfólio interativo centrado em uma experiência única de Terminal (linha de comando), com identidade visual fiel a terminais reais. Construído em React + TypeScript, focado em responsividade, fluidez e consistência visual.
 
 ## Sumário
 - Visão geral
@@ -14,15 +13,14 @@ Portfólio interativo com duas experiências de navegação: Terminal (linha de 
 - Próximos passos
 
 ## Visão geral
-- Duas experiências: modo terminal e modo scroll.
-- Visual consistente inspirado em terminais reais (Ubuntu/Windows/retro).
+- Experiência única: modo terminal interativo.
+- Visual consistente inspirado em terminais Ubuntu/Windows/retro.
 - Totalmente responsivo e otimizado para desktop e mobile.
 
 ## Funcionalidades
-- Modo Terminal: navegação por comandos (help, about, skills, projects, contact, clear).
-- Modo Scroll: navegação tradicional com seções About, Skills, Projects e Contact.
+- Navegação por comandos: `help`, `about`, `skills`, `projects`, `contact`, `clear`.
 - Tema dark com design system próprio (cores, espaçamentos, tipografia monoespaçada).
-- Scroll progress discreto e layout centrado.
+- Layout centrado, padding e line-height ajustados para ergonomia de terminal.
 
 ## Tecnologias
 - React 19, TypeScript, Vite.
@@ -48,7 +46,7 @@ npm run dev
 ## Personalização rápida
 - Conteúdo: `src/components/sections/` e `src/data/projects.ts`.
 - Estilo/tema: variáveis em `src/styles/design-system.css` e temas em `src/styles/terminal-themes.css`.
-- Navegação: itens em `src/constants/index.ts`.
+- Navegação/menus: pode ajustar constantes auxiliares em `src/constants/index.ts`.
 
 ## Estrutura do projeto
 ```

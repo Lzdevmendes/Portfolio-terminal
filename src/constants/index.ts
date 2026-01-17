@@ -4,16 +4,6 @@
  */
 
 /* ========================================
-   NAVIGATION
-   ======================================== */
-export const NAV_ITEMS = [
-  { id: "about", label: "Sobre" },
-  { id: "skills", label: "Skills" },
-  { id: "projects", label: "Projetos" },
-  { id: "contact", label: "Contato" },
-] as const;
-
-/* ========================================
    SOCIAL LINKS
    ======================================== */
 export const SOCIAL_LINKS = [

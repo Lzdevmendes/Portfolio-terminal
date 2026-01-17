@@ -1,10 +1,10 @@
 import { useState, useCallback, useRef } from "react";
 import type { TerminalTheme } from "../components/Terminal/ThemeContext";
 
-export type TerminalCommand = "about" | "skills" | "projects" | "contact" | "help" | "clear" | "theme";
+export type TerminalCommand = "about" | "skills" | "projects" | "contact" | "help" | "clear" | "theme" | "view";
 export type OutputType = "command" | "success" | "error" | "info" | "warning" | "section";
 
-const AVAILABLE_COMMANDS: TerminalCommand[] = ["about", "skills", "projects", "contact", "help", "clear", "theme"];
+const AVAILABLE_COMMANDS: TerminalCommand[] = ["about", "skills", "projects", "contact", "help", "clear", "theme", "view"];
 const VALID_THEMES = ["ubuntu", "windows", "retro"];
 
 export type HistoryEntry = {
@@ -14,7 +14,7 @@ export type HistoryEntry = {
 
 type CommandResult = {
   output: HistoryEntry[];
-  section?: "about" | "skills" | "projects" | "contact" | null;
+  section?: "about" | "skills" | "projects" | "contact" | "view" | null;
 };
 
 interface UseTerminalEngineOptions {
@@ -28,7 +28,7 @@ export function useTerminalEngine(options?: UseTerminalEngineOptions) {
   ]);
 
   const [isProcessing, setIsProcessing] = useState(false);
-  const [activeSection, setActiveSection] = useState<"about" | "skills" | "projects" | "contact" | null>(null);
+  const [activeSection, setActiveSection] = useState<"about" | "skills" | "projects" | "contact" | "view" | null>(null);
   const commandHistoryRef = useRef<string[]>([]);
   const historyIndexRef = useRef<number>(-1);
 
@@ -93,6 +93,7 @@ export function useTerminalEngine(options?: UseTerminalEngineOptions) {
           { text: "  • skills   - Minhas habilidades", type: "info" },
           { text: "  • projects - Projetos em destaque", type: "info" },
           { text: "  • contact  - Entre em contato", type: "info" },
+          { text: "  • view     - Ver tudo de forma fluída", type: "info" },
           { text: "  • theme    - Mudar tema (ubuntu|windows|retro)", type: "info" },
           { text: "  • clear    - Limpar terminal", type: "info" },
           { text: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", type: "info" }
@@ -105,6 +106,16 @@ export function useTerminalEngine(options?: UseTerminalEngineOptions) {
       return {
         output: [],
         section: null
+      };
+    }
+
+    // View command (scroll experience)
+    if (cmd === "view") {
+      return {
+        output: [
+          { text: "✨ Abrindo visualização completa...", type: "success" }
+        ],
+        section: "view"
       };
     }
 
