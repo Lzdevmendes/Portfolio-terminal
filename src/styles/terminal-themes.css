@@ -1,0 +1,92 @@
+/* Terminal Themes - CSS Variables scoped by .theme-<name> */
+
+:root {
+  --terminal-font: "JetBrains Mono", monospace;
+}
+
+/* Ubuntu-like (dark aubergine + green accent) */
+.theme-ubuntu {
+  --terminal-bg: #0b0f17;
+  --terminal-panel: #0f1624;
+  --terminal-text: #e5e7eb;
+  --terminal-muted: #94a3b8;
+  --terminal-accent: #10b981; /* emerald */
+  --terminal-border: #1f2937;
+  --header-bg: linear-gradient(90deg, #0e1626 0%, #111827 100%);
+  --header-fg: #cbd5e1;
+  --button-close: #ef4444;
+  --button-minimize: #f59e0b;
+  --button-maximize: #10b981;
+}
+
+/* Windows-like (slate blue + cyan accent) */
+.theme-windows {
+  --terminal-bg: #0a0f1d;
+  --terminal-panel: #0d1424;
+  --terminal-text: #e6f1ff;
+  --terminal-muted: #9fb3c8;
+  --terminal-accent: #22d3ee; /* cyan */
+  --terminal-border: #1e293b;
+  --header-bg: linear-gradient(90deg, #0b1324 0%, #0f172a 100%);
+  --header-fg: #cfe1ff;
+  --button-close: #ef4444;
+  --button-minimize: #f59e0b;
+  --button-maximize: #22d3ee;
+}
+
+/* Retro CRT (deep green + lime accent) */
+.theme-retro {
+  --terminal-bg: #030d07;
+  --terminal-panel: #04110a;
+  --terminal-text: #b6f5c8;
+  --terminal-muted: #6de39c;
+  --terminal-accent: #32e26a; /* lime green */
+  --terminal-border: #0b2a1b;
+  --header-bg: linear-gradient(90deg, #05130a 0%, #07180d 100%);
+  --header-fg: #abf4c4;
+  --button-close: #ef4444;
+  --button-minimize: #f59e0b;
+  --button-maximize: #32e26a;
+}
+
+/* Shared structure helpers */
+.theme-ubuntu .terminal-window,
+.theme-windows .terminal-window,
+.theme-retro .terminal-window {
+  background: var(--terminal-bg);
+  color: var(--terminal-text);
+}
+
+.terminal-header {
+  background: var(--header-bg);
+  color: var(--header-fg);
+  border-bottom: 1px solid var(--terminal-border);
+}
+
+.terminal-controls .btn {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+}
+
+.theme-ubuntu .terminal-controls .btn.close,
+.theme-windows .terminal-controls .btn.close,
+.theme-retro .terminal-controls .btn.close {
+  background: var(--button-close);
+}
+
+.theme-ubuntu .terminal-controls .btn.minimize,
+.theme-windows .terminal-controls .btn.minimize,
+.theme-retro .terminal-controls .btn.minimize {
+  background: var(--button-minimize);
+}
+
+.theme-ubuntu .terminal-controls .btn.maximize,
+.theme-windows .terminal-controls .btn.maximize,
+.theme-retro .terminal-controls .btn.maximize {
+  background: var(--button-maximize);
+}
+
+.terminal-content {
+  background: var(--terminal-panel);
+}

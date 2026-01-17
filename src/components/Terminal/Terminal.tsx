@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import type { KeyboardEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { TerminalWindow } from "./TerminalWindow";
 
 type Section = "about" | "skills" | "projects" | "contact" | null;
 
@@ -73,12 +74,12 @@ export function Terminal() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      {/* Terminal */}
+    <TerminalWindow>
+      {/* Terminal content */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="flex-1 p-4 sm:p-6 md:p-8 font-mono text-xs sm:text-sm overflow-y-auto leading-relaxed"
+        className="p-4 sm:p-6 md:p-8 font-mono text-xs sm:text-sm overflow-y-auto leading-relaxed"
       >
         <AnimatePresence mode="popLayout">
           {history.map((line, index) => (
@@ -111,6 +112,7 @@ export function Terminal() {
         )}
 
         <div ref={historyEndRef} />
+        <div ref={historyEndRef} />
       </motion.div>
 
       {/* Conteúdo Dinâmico */}
@@ -122,7 +124,7 @@ export function Terminal() {
             animate={{ opacity: 1, y: 0, height: "auto" }}
             exit={{ opacity: 0, y: -20, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="border-t border-slate-800 p-4 sm:p-6 bg-slate-950/60 backdrop-blur overflow-hidden"
+            className="border-t border-slate-800 p-4 sm:p-6 bg-slate-950/40 backdrop-blur overflow-hidden"
           >
             {activeSection === "about" && (
               <div className="space-y-3">
@@ -223,7 +225,7 @@ export function Terminal() {
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="flex items-center gap-2 sm:gap-3 border-t border-slate-800 bg-slate-950/80 backdrop-blur px-4 sm:px-6 py-3 sm:py-4"
+        className="flex items-center gap-2 sm:gap-3 border-t border-slate-800 bg-slate-950/60 backdrop-blur px-4 sm:px-6 py-3 sm:py-4"
       >
         <motion.span
           animate={{ opacity: [1, 0.5, 1] }}
@@ -241,6 +243,6 @@ export function Terminal() {
           autoFocus
         />
       </motion.div>
-    </div>
+    </TerminalWindow>
   );
 }

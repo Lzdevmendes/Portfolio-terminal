@@ -1,4 +1,5 @@
-/* Import terminal aesthetic effects */
+/* Import terminal themes and aesthetic effects */
+@import './terminal-themes.css';
 @import './terminal-effects.css';
 
 @tailwind base;
