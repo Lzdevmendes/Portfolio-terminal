@@ -1,13 +1,14 @@
 /**
- * Terminal Effects - Aesthetic enhancements for retro/hacker theme
- * Features: Scanlines, CRT glow, cursor animations, terminal grid
+ * Terminal Effects - Theme-specific visual effects
+ * Retro CRT scanlines, glow effects, etc.
  */
 
 /* ========================================
-   SCANLINES EFFECT (Subtle CRT)
+   RETRO CRT SCANLINES (Only on retro theme)
    ======================================== */
 @layer base {
-  .terminal-scanlines::before {
+  /* Scanlines overlay for retro theme */
+  .theme-retro .scanlines-overlay::before {
     content: '';
     position: fixed;
     top: 0;
@@ -18,35 +19,35 @@
     z-index: 1;
     background: linear-gradient(
       to bottom,
-      rgba(16, 185, 129, 0.02) 50%,
+      rgba(50, 226, 106, 0.03) 50%,
       transparent 50%
     );
-    background-size: 100% 4px;
-    opacity: 0.3;
+    background-size: 100% 3px;
+    opacity: 0.4;
     animation: scanline 8s linear infinite;
   }
 
-  /* CRT Curvature (very subtle) */
-  .terminal-crt {
+  /* CRT Glow effect for retro */
+  .theme-retro .terminal-window-frame {
     position: relative;
-    overflow: hidden;
   }
 
-  .terminal-crt::before {
+  .theme-retro .terminal-window-frame::before {
     content: '';
-    position: fixed;
-    top: -10%;
-    left: -10%;
-    width: 120%;
-    height: 120%;
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
     pointer-events: none;
-    z-index: 2;
+    z-index: -1;
     background: radial-gradient(
       circle,
-      rgba(16, 185, 129, 0.03) 0%,
-      transparent 60%
+      rgba(50, 226, 106, 0.15) 0%,
+      transparent 70%
     );
-    mix-blend-mode: overlay;
+    border-radius: inherit;
+    opacity: 0.6;
   }
 }
 

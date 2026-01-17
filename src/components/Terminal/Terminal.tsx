@@ -5,6 +5,7 @@ import { TerminalWindow } from "./TerminalWindow";
 import { TerminalInput } from "../ui/TerminalInput";
 import { TerminalPanel } from "../ui/TerminalPanel";
 import { TerminalButton } from "../ui/TerminalButton";
+import { ViewMode } from "../ViewMode";
 import { useTerminalTheme } from "./ThemeContext";
 import { useTerminalEngine, type HistoryEntry } from "../../hooks/useTerminalEngine";
 
@@ -26,9 +27,14 @@ function getOutputClassName(type: HistoryEntry["type"]): string {
 }
 
 export function Terminal() {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(() => {
+    return localStorage.getItem('terminal-input') || '';
+  });
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [userHasScrolled, setUserHasScrolled] = useState(false);
+  const [viewMode, setViewMode] = useState(() => {
+    return localStorage.getItem('terminal-viewMode') === 'true';
+  });
   const inputRef = useRef<HTMLInputElement>(null);
   const historyEndRef = useRef<HTMLDivElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
@@ -45,6 +51,21 @@ export function Terminal() {
   } = useTerminalEngine({
     onThemeChange: setTheme,
   });
+
+  useEffect(() => {
+    // Persistência do input
+    localStorage.setItem('terminal-input', input);
+  }, [input]);
+
+  useEffect(() => {
+    // Persistência do viewMode
+    localStorage.setItem('terminal-viewMode', String(viewMode));
+  }, [viewMode]);
+
+  // Detectar quando activeSection é 'view' e ativar viewMode
+  if (activeSection === 'view' && !viewMode) {
+    setViewMode(true);
+  }
 
   useEffect(() => {
     // Auto-scroll apenas se usuário não fez scroll manual
@@ -104,7 +125,11 @@ export function Terminal() {
   }
 
   return (
-    <TerminalWindow>
+    <>
+      {viewMode ? (
+        <ViewMode onClose={() => setViewMode(false)} />
+      ) : (
+        <TerminalWindow>
       {/* Terminal Output Area */}
       <div 
         ref={outputRef}
@@ -355,5 +380,7 @@ export function Terminal() {
         </div>
       </div>
     </TerminalWindow>
+      )}
+    </>
   );
 }

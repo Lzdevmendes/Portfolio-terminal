@@ -14,17 +14,19 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 4rem;
-    background: radial-gradient(circle at top, #020617, #020617);
+    background: var(--color-bg-primary);
+    transition: background-color 0.3s ease;
   }
 
   body {
-    @apply text-slate-100 font-mono antialiased;
-    color: #e5e7eb;
-    font-family: 'JetBrains Mono', monospace;
+    @apply antialiased;
+    color: var(--color-text-primary);
+    background: var(--color-bg-primary);
+    font-family: var(--terminal-font);
     overflow-x: hidden;
     background-attachment: fixed;
-    /* Apply terminal effects */
     position: relative;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   /* Scanlines overlay on body */

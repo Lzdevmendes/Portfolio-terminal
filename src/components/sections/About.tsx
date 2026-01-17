@@ -57,27 +57,12 @@ export function About() {
           </p>
         </motion.div>
 
-        {/* Stats animados */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: ANIMATION.delayLarge }}
-          className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 pt-4"
-        >
+        {/* Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 pt-4">
           {STATS.map((stat, index) => (
-            <motion.div
+            <div
               key={stat.label}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * ANIMATION.delaySmall }}
-              whileHover={{
-                scale: 1.05,
-                y: -5,
-                transition: { duration: 0.2 },
-              }}
-              className="p-4 sm:p-6 rounded-xl border border-slate-800 bg-gradient-to-br from-slate-900/80 to-slate-950/80 hover:border-emerald-500/50 transition-all group"
+              className="p-4 sm:p-6 rounded-xl border border-slate-800 bg-gradient-to-br from-slate-900/80 to-slate-950/80 hover:border-emerald-500/50 transition-colors group"
             >
               <div className="text-2xl sm:text-3xl font-bold text-emerald-400 mb-1 group-hover:text-emerald-300 transition">
                 {stat.value}
@@ -85,9 +70,9 @@ export function About() {
               <div className="text-xs sm:text-sm text-slate-400 group-hover:text-slate-300 transition">
                 {stat.label}
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </Section>
   );

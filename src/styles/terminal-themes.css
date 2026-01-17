@@ -1,152 +1,165 @@
-/* Terminal Themes - CSS Variables scoped by .theme-<name> */
+/* Terminal Themes - Complete visual overhaul per theme */
 
 :root {
   --terminal-font: "JetBrains Mono", monospace;
 }
 
-/* Ubuntu-like (dark aubergine + green accent) */
+/* ============================================================================
+   UBUNTU THEME - Dark aubergine + emerald green
+   ============================================================================ */
 .theme-ubuntu {
-  --terminal-bg: #0b0f17;
-  --terminal-panel: #0f1624;
-  --terminal-text: #e5e7eb;
-  --terminal-muted: #94a3b8;
-  --terminal-accent: #10b981; /* emerald */
-  --terminal-border: #1f2937;
-  --header-bg: linear-gradient(90deg, #0e1626 0%, #111827 100%);
-  --header-fg: #cbd5e1;
-  --button-close: #ef4444;
-  --button-minimize: #f59e0b;
-  --button-maximize: #10b981;
-  --output-success: #10b981;
-  --output-error: #ef4444;
-  --output-info: #94a3b8;
-  --output-warning: #f59e0b;
+  /* Backgrounds */
+  --color-bg-primary: #0a0a0f;
+  --color-bg-secondary: #0d1117;
+  --color-bg-tertiary: #161b22;
+  --color-bg-elevated: #21262d;
+  
+  /* Borders */
+  --color-border-default: #30363d;
+  --color-border-muted: #21262d;
+  --color-border-focus: #10b981;
+  
+  /* Text colors */
+  --color-text-primary: #e6edf3;
+  --color-text-secondary: #8b949e;
+  --color-text-tertiary: #6e7681;
+  --color-text-placeholder: #484f58;
+  
+  /* Accents */
+  --color-accent-primary: #10b981;
+  --color-accent-secondary: #3b82f6;
+  --color-accent-warning: #f59e0b;
+  --color-accent-error: #ef4444;
+  
+  /* Terminal specific */
+  --color-terminal-cursor: #10b981;
+  --color-terminal-selection: rgba(16, 185, 129, 0.15);
+  
+  /* Window controls */
+  --traffic-light-red: #ef4444;
+  --traffic-light-yellow: #f59e0b;
+  --traffic-light-green: #10b981;
 }
 
-/* Windows-like (slate blue + cyan accent) */
+/* ============================================================================
+   WINDOWS THEME - Slate blue + cyan accent
+   ============================================================================ */
 .theme-windows {
-  --terminal-bg: #0a0f1d;
-  --terminal-panel: #0d1424;
-  --terminal-text: #e6f1ff;
-  --terminal-muted: #9fb3c8;
-  --terminal-accent: #22d3ee; /* cyan */
-  --terminal-border: #1e293b;
-  --header-bg: linear-gradient(90deg, #0b1324 0%, #0f172a 100%);
-  --header-fg: #cfe1ff;
-  --button-close: #ef4444;
-  --button-minimize: #f59e0b;
-  --button-maximize: #22d3ee;
-  --output-success: #22d3ee;
-  --output-error: #ef4444;
-  --output-info: #9fb3c8;
-  --output-warning: #fbbf24;
+  /* Backgrounds */
+  --color-bg-primary: #0c1021;
+  --color-bg-secondary: #0f1419;
+  --color-bg-tertiary: #1a1f2e;
+  --color-bg-elevated: #252b3d;
+  
+  /* Borders */
+  --color-border-default: #2d3548;
+  --color-border-muted: #1e2433;
+  --color-border-focus: #22d3ee;
+  
+  /* Text colors */
+  --color-text-primary: #e6f1ff;
+  --color-text-secondary: #9fb3c8;
+  --color-text-tertiary: #7a8ea8;
+  --color-text-placeholder: #556577;
+  
+  /* Accents */
+  --color-accent-primary: #22d3ee;
+  --color-accent-secondary: #60a5fa;
+  --color-accent-warning: #fbbf24;
+  --color-accent-error: #ef4444;
+  
+  /* Terminal specific */
+  --color-terminal-cursor: #22d3ee;
+  --color-terminal-selection: rgba(34, 211, 238, 0.15);
+  
+  /* Window controls */
+  --traffic-light-red: #ef4444;
+  --traffic-light-yellow: #fbbf24;
+  --traffic-light-green: #22d3ee;
 }
 
-/* Retro CRT (deep green + lime accent) */
+/* ============================================================================
+   RETRO THEME - CRT green phosphor screen
+   ============================================================================ */
 .theme-retro {
-  --terminal-bg: #030d07;
-  --terminal-panel: #04110a;
-  --terminal-text: #b6f5c8;
-  --terminal-muted: #6de39c;
-  --terminal-accent: #32e26a; /* lime green */
-  --terminal-border: #0b2a1b;
-  --header-bg: linear-gradient(90deg, #05130a 0%, #07180d 100%);
-  --header-fg: #abf4c4;
-  --button-close: #ef4444;
-  --button-minimize: #f59e0b;
-  --button-maximize: #32e26a;
-  --output-success: #32e26a;
-  --output-error: #ff6b6b;
-  --output-info: #6de39c;
-  --output-warning: #fbbf24;
+  /* Backgrounds - Deep green tones */
+  --color-bg-primary: #030d07;
+  --color-bg-secondary: #04110a;
+  --color-bg-tertiary: #05150c;
+  --color-bg-elevated: #0a2314;
+  
+  /* Borders - Green tinted */
+  --color-border-default: #0b2a1b;
+  --color-border-muted: #081f13;
+  --color-border-focus: #32e26a;
+  
+  /* Text colors - Phosphor green */
+  --color-text-primary: #b6f5c8;
+  --color-text-secondary: #6de39c;
+  --color-text-tertiary: #4dc47d;
+  --color-text-placeholder: #2a8554;
+  
+  /* Accents - Bright greens */
+  --color-accent-primary: #32e26a;
+  --color-accent-secondary: #00ff88;
+  --color-accent-warning: #ffeb3b;
+  --color-accent-error: #ff6b6b;
+  
+  /* Terminal specific */
+  --color-terminal-cursor: #32e26a;
+  --color-terminal-selection: rgba(50, 226, 106, 0.2);
+  
+  /* Window controls */
+  --traffic-light-red: #ff6b6b;
+  --traffic-light-yellow: #ffeb3b;
+  --traffic-light-green: #32e26a;
+  
+  /* CRT effects */
+  --retro-glow: 0 0 8px rgba(50, 226, 106, 0.6);
+  --retro-text-shadow: 0 0 5px rgba(50, 226, 106, 0.8);
 }
 
-/* Shared structure helpers */
-.theme-ubuntu .terminal-window,
-.theme-windows .terminal-window,
-.theme-retro .terminal-window {
-  background: var(--terminal-bg);
-  color: var(--terminal-text);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+/* Retro theme additional effects */
+.theme-retro {
+  text-shadow: var(--retro-text-shadow);
 }
 
-.terminal-header {
-  background: var(--header-bg);
-  color: var(--header-fg);
-  border-bottom: 1px solid var(--terminal-border);
-  user-select: none;
+.theme-retro .terminal-window-frame {
+  box-shadow: var(--retro-glow), 0 25px 50px -12px rgba(0, 0, 0, 0.6);
 }
 
-.terminal-controls .btn {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  cursor: pointer;
-  transition: all 0.15s ease;
+.theme-retro .text-terminal,
+.theme-retro h1,
+.theme-retro h2,
+.theme-retro h3 {
+  text-shadow: var(--retro-text-shadow);
 }
 
-.terminal-controls .btn:hover {
-  transform: scale(1.1);
-  filter: brightness(1.2);
-}
-
-.theme-ubuntu .terminal-controls .btn.close,
-.theme-windows .terminal-controls .btn.close,
-.theme-retro .terminal-controls .btn.close {
-  background: var(--button-close);
-}
-
-.theme-ubuntu .terminal-controls .btn.minimize,
-.theme-windows .terminal-controls .btn.minimize,
-.theme-retro .terminal-controls .btn.minimize {
-  background: var(--button-minimize);
-}
-
-.theme-ubuntu .terminal-controls .btn.maximize,
-.theme-windows .terminal-controls .btn.maximize,
-.theme-retro .terminal-controls .btn.maximize {
-  background: var(--button-maximize);
-}
-
-.terminal-content {
-  background: var(--terminal-panel);
-}
-
-/* Output styling by content type */
+/* Output styling per theme */
 .terminal-output-success {
-  color: var(--output-success);
-  font-family: var(--terminal-font);
+  color: var(--color-accent-primary);
 }
 
 .terminal-output-error {
-  color: var(--output-error);
-  font-family: var(--terminal-font);
+  color: var(--color-accent-error);
   font-weight: 500;
 }
 
 .terminal-output-info {
-  color: var(--output-info);
-  font-family: var(--terminal-font);
+  color: var(--color-text-secondary);
 }
 
 .terminal-output-warning {
-  color: var(--output-warning);
-  font-family: var(--terminal-font);
+  color: var(--color-accent-warning);
 }
 
-/* Command echo styling */
 .terminal-command-echo {
-  color: var(--terminal-accent);
-  font-family: var(--terminal-font);
+  color: var(--color-accent-primary);
   font-weight: 500;
 }
 
-/* Section headers */
 .terminal-section-header {
-  color: var(--terminal-accent);
-  font-family: var(--terminal-font);
+  color: var(--color-accent-primary);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
