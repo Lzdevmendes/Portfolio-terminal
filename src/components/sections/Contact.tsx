@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Section } from "./Section";
 import { SOCIAL_LINKS, ANIMATION } from "../../constants";
+import { useToast } from "../../context/ToastContext";
 import type { FormData } from "../../types";
 
 export function Contact() {
@@ -12,11 +13,49 @@ export function Contact() {
   });
 
   const [focused, setFocused] = useState<string | null>(null);
+  const [errors, setErrors] = useState<Partial<FormData>>({});
+// @ts-ignore
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { addToast } = useToast();
+
+  function validateForm(): boolean {
+    const newErrors: Partial<FormData> = {};
+
+    if (!formData.name.trim()) newErrors.name = "Nome é obrigatório";
+    if (!formData.email.trim()) {
+      newErrors.email = "Email é obrigatório";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Email inválido";
+    }
+    if (!formData.message.trim()) newErrors.message = "Mensagem é obrigatória";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }
+
+// @ts-ignore
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name as keyof FormData]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Adicione lógica de envio aqui
+
+    if (!validateForm()) {
+      addToast("Por favor, preencha todos os campos corretamente", "error");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      addToast("Mensagem enviada com sucesso! 🎉", "success");
+      setFormData({ name: "", email: "", message: "" });
+    }, 1500);
   }
 
   return (
@@ -27,7 +66,7 @@ export function Contact() {
         viewport={{ once: true }}
         className="max-w-4xl mx-auto"
       >
-        <h2 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6 text-center">
+        <h2 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6 text-center text-glow-sm">
           Vamos trabalhar juntos?
         </h2>
 

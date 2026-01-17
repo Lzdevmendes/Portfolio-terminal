@@ -12,7 +12,9 @@ export function Projects() {
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        className="text-3xl sm:text-4xl font-bold mb-8 sm:mb-12"
+        className="text-3xl sm:text-4xl font-bold mb-8 sm:mb-12 text-glow-sm"
+        role="heading"
+        aria-level={2}
       >
         Projetos em Destaque
       </motion.h2>

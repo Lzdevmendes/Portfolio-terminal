@@ -69,6 +69,7 @@ export default {
         'glow': 'glow 2s ease-in-out infinite',
         'cursor-blink': 'cursor-blink 1s step-end infinite',
         'scanline': 'scanline 8s linear infinite',
+        'ripple': 'ripple 0.6s ease-out',
       },
       keyframes: {
         gradient: {
@@ -94,6 +95,12 @@ export default {
         scanline: {
           '0%': { transform: 'translateY(-100%)' },
           '100%': { transform: 'translateY(100vh)' },
+        },
+        ripple: {
+          'to': {
+            transform: 'scale(4)',
+            opacity: '0',
+          },
         },
       },
       backgroundImage: {
