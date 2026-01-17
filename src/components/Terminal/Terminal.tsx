@@ -28,8 +28,10 @@ function getOutputClassName(type: HistoryEntry["type"]): string {
 export function Terminal() {
   const [input, setInput] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [userHasScrolled, setUserHasScrolled] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const historyEndRef = useRef<HTMLDivElement>(null);
+  const outputRef = useRef<HTMLDivElement>(null);
   const { setTheme } = useTerminalTheme();
 
   const {
@@ -45,8 +47,31 @@ export function Terminal() {
   });
 
   useEffect(() => {
-    historyEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [history]);
+    // Auto-scroll apenas se usuário não fez scroll manual
+    if (!userHasScrolled && historyEndRef.current) {
+      historyEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [history, userHasScrolled]);
+
+  useEffect(() => {
+    const outputElement = outputRef.current;
+    if (!outputElement) return;
+
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = outputElement;
+      const isAtBottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 10;
+      
+      // Se usuário scrollou para o topo, marcar que fez scroll manual
+      if (!isAtBottom) {
+        setUserHasScrolled(true);
+      } else {
+        setUserHasScrolled(false);
+      }
+    };
+
+    outputElement.addEventListener('scroll', handleScroll);
+    return () => outputElement.removeEventListener('scroll', handleScroll);
+  }, []);
 
   function handleInputChange(value: string) {
     setInput(value);
@@ -59,6 +84,8 @@ export function Terminal() {
       executeCommand(input);
       setInput("");
       setSuggestions([]);
+      // Reset scroll quando comando é executado
+      setUserHasScrolled(false);
     } else if (e.key === "Tab" && suggestions.length > 0) {
       e.preventDefault();
       setInput(suggestions[0]);
@@ -80,14 +107,21 @@ export function Terminal() {
     <TerminalWindow>
       {/* Terminal Output Area */}
       <div 
-        className="flex-1 overflow-y-auto text-terminal text-xs sm:text-sm scrollbar-terminal"
+        ref={outputRef}
+        className="flex-1 overflow-y-auto text-terminal text-sm scrollbar-terminal"
+        style={{ scrollBehavior: 'smooth' }}
       >
-        <div className="p-3 sm:p-4 space-y-0.5">
+        <div className="p-4 sm:p-5 space-y-0.5" style={{ lineHeight: '1.6' }}>
           {history.map((entry, index) => (
             <div
               key={index}
-              className={`leading-relaxed ${getOutputClassName(entry.type)}`}
-              style={{ color: 'var(--color-text-primary)' }}
+              className={getOutputClassName(entry.type)}
+              style={{ 
+                color: 'var(--color-text-primary)',
+                lineHeight: '1.65',
+                paddingTop: '0.125rem',
+                paddingBottom: '0.125rem'
+              }}
             >
               {entry.text}
             </div>
@@ -122,7 +156,7 @@ export function Terminal() {
               borderTop: '1px solid var(--color-border-default)',
             }}
           >
-            <div className="p-3 sm:p-4 text-terminal text-xs sm:text-sm">
+            <div className="p-4 text-terminal text-sm">
               {activeSection === "about" && (
                 <div className="space-y-3">
                   <h2 
@@ -131,7 +165,7 @@ export function Terminal() {
                   >
                     <span>👨‍💻</span> ABOUT
                   </h2>
-                  <p className="leading-relaxed" style={{ color: 'var(--color-text-primary)' }}>
+                  <p className="leading-relaxed" style={{ color: 'var(--color-text-primary)', lineHeight: '1.65' }}>
                     Desenvolvedor Full Stack apaixonado por criar experiências digitais únicas.
                     Especializado em React, TypeScript e Node.js.
                   </p>
@@ -274,7 +308,7 @@ export function Terminal() {
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 5 }}
-              className="absolute bottom-full left-0 right-0 p-2 sm:p-3 text-terminal text-xs"
+              className="absolute bottom-full left-0 right-0 p-4 text-terminal text-sm"
               style={{ background: 'var(--color-bg-elevated)', borderTop: '1px solid var(--color-border-default)' }}
             >
               <div className="mb-2" style={{ color: 'var(--color-text-tertiary)' }}>Tab to complete:</div>
@@ -299,9 +333,9 @@ export function Terminal() {
         </AnimatePresence>
 
         {/* Input Line */}
-        <div className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3">
+        <div className="flex items-center gap-3 px-4 sm:px-5 py-3">
           <span 
-            className="text-terminal text-sm font-bold animate-pulse"
+            className="text-terminal text-sm font-bold flex-shrink-0"
             style={{ color: 'var(--color-accent-primary)' }}
           >
             $
@@ -315,7 +349,8 @@ export function Terminal() {
             placeholder="type 'help' to start..."
             autoFocus
             fullWidth
-            className="bg-transparent border-0 focus:ring-0 focus:shadow-none"
+            className="bg-transparent border-0 focus:ring-0 focus:shadow-none flex-1 text-sm"
+            style={{ caretColor: 'var(--color-terminal-cursor)' }}
           />
         </div>
       </div>

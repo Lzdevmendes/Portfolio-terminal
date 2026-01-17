@@ -11,11 +11,14 @@ export function TerminalWindow({ children, hostname = "luizmendes@portfolio" }: 
 
   return (
     <div 
-      className="min-h-screen w-full flex items-center justify-center p-2 sm:p-4 md:p-8"
+      className="min-h-screen w-full flex items-center justify-center p-4 sm:p-6 md:p-8"
       style={{ background: 'var(--color-bg-primary)' }}
     >
       {/* Terminal Window */}
-      <div className="terminal-window-frame w-full max-w-4xl h-[95vh] sm:h-[90vh] md:h-[85vh] flex flex-col rounded-none sm:rounded-lg">
+      <div 
+        className="terminal-window-frame w-full max-w-5xl h-[92vh] sm:h-[88vh] md:h-[82vh] flex flex-col rounded-lg"
+        style={{ boxShadow: 'var(--shadow-xl), 0 0 0 1px rgba(255, 255, 255, 0.05)' }}
+      >
         {/* Title Bar */}
         <header className="terminal-header flex items-center justify-between px-3 py-2 sm:px-4 sm:py-2.5 shrink-0">
           {/* Left: Window Controls */}
